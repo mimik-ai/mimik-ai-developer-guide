@@ -34,7 +34,7 @@ The purpose of this document is to explain the steps to take to get a Coordinato
 
 In order to implement this scenario you will need:
 
-* A Ubuntu 22.04 machine running the [AI release of mim OE](https://github.com/mimik-mim-OE/mim-OE-SE-Linux/).
+* A Ubuntu 22.04 machine running the [AI release of mim OE](https://github.com/mim-OE/mim-OE-SE-Linux/).
 * The Ubuntu machine needs to have port 8083 exposed
 
 # What you'll be doing
