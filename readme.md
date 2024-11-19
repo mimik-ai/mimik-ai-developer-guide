@@ -139,7 +139,7 @@ As mentioned above, the role of the Coordinator Machine is to synthesize prompt 
 
 The Coordinator Machine is intended to support multi-agent processing.
 
-The way that multi-agent processing works is that a user submits, via the edgeEngine runtime, a prompt to the Coordinator Machine according to a specific Agent Collection. (The details about an Agent Collection are discussed in the coming section.) The Coordinator Machine forwards the prompt to the Agent Machines in the Agent Collection. Each Agent Machine in the Agent Collection processes the prompt and returns its response to the Coordinator Machine. The Coordinator Machine then synthesizes the prompt responses from the Agent Machines into the "best possible answer."
+The way that multi-agent processing works is that a user submits, via the mim OE runtime, a prompt to the Coordinator Machine according to a specific Agent Collection. (The details about an Agent Collection are discussed in the coming section.) The Coordinator Machine forwards the prompt to the Agent Machines in the Agent Collection. Each Agent Machine in the Agent Collection processes the prompt and returns its response to the Coordinator Machine. The Coordinator Machine then synthesizes the prompt responses from the Agent Machines into the "best possible answer."
 
 Working with a Coordinator Machine is covered in [a section to come](#getting-the-coordinator-machine-up-and-running).
 
@@ -161,9 +161,10 @@ To get full benefit from reading this documentation, you need to have the follow
 
 * A mimik developer's account, which you create on the [Getting Started page of the mimik Developer Portal](https://console.mimik.com/create_account). (See the following figure.)
 ![Create Account](./images/create-account-01.png)
-* A general understanding of mimik technology because mimOE.ai is an extension. The following links refer to entries in the [mimik Developer Documentation](https://devdocs.mimik.com/) that describe the basics of mimik.
-  * [Introduction to edgeEngine](https://devdocs.mimik.com/introduction): Introduces a developer to the 3 essential components of edgeEngine technology: the edgeEngine Runtime, the hybrid edgeCloud, and the edgeEngine Service Mesh.
-  * [Key Concepts](https://devdocs.mimik.com/key-concepts): Describes the key concepts a developer needs to understand to work effectively with edgeEngine.
+* A general understanding of mimik technology because mimik ai is an extension. The following links refer to entries in the [mimik Developer Documentation](https://devdocs.mimik.com/) that describe the basics of mimik.
+  * [Introduction to edgeEngine](https://devdocs.mimik.com/introduction): Introduces a developer to the 3 essential components of mimik technology: the mim OE Runtime, the hybrid edgeCloud, and the edge Service Mesh.
+  * [Key Concepts](https://devdocs.mimik.com/key-concepts): Describes the key concepts a developer needs to understand to work effectively with mim OE.
+.
 
 In addition to understanding the basics of mimik technology, a developer needs to understand the nature of large language models (LLM) and how they respond to prompts and queries submitted by end-users. LLMs are important part of mimOE.ai
 
