@@ -149,7 +149,7 @@ An Agent Collection is a logical grouping of Agent Machines according to the mod
 
 ![Agent Collections](./images/agent-collections.png)
 
-A mimOE.ai Coordinator Machine is designed to support multiple Agent Collections. You'll cover the specifics of creating and naming an Agent Collection when you do the hands-on demonstration scenarios that will follow.
+A Coordinator Machine is designed to support multiple Agent Collections. You'll cover the specifics of creating and naming an Agent Collection when you do the hands-on demonstration scenarios that will follow.
 
 Also, as you'll learn when you start working with the various demonstration scenarios, you'll bind an instance of the User Console to a given Agent Collection on a Coordinator Machine according to the Coordinator Machine's IP address and the name of the Agent Collection of interest installed on the Coordinator Machine.
 
