@@ -46,7 +46,7 @@ mimik ai empowers developers to create sophisticated AI applications that levera
 
 This documentation describes mimik ai and how it works. It provides explanations and a set of hands-on demonstration projects showing developers how to work with the technology. The demonstration projects are progressive in that each builds upon activities implemented in a previous demonstration project.
 
-The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a single agent. In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. You’ll also make a distinctly named Agent Collection on the Coordinator Machine for this scenario. In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
+The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a single agent. In the `second scenario`, you'll add an Nvidia Orin device to the edge Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. You’ll also make a distinctly named Agent Collection on the Coordinator Machine for this scenario. In the `third scenario`, you'll add two more Agent Machines to the edge Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
 
 Before discussing each scenario, a developer must understand the essential concepts and components of mimOE.ai. Once a developer understands these essentials, we'll provide the instructions for a developer to get direct hands-on experience with the scenarios via demonstration projects.
 
@@ -87,7 +87,7 @@ The main benefits are:
 
 ## Understanding the Basic Architecture
 
-Under mimik ai, two types of machines are running on a edge Service Mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimik ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
+Under mimik ai, two types of machines are running on an edge Service Mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimik ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
 
 The figure below shows an instance of the mimik Service Mesh with four Agent Machines and a Coordinator Machine.
 
@@ -101,11 +101,11 @@ A computing device is deemed a Coordinator Machine when it runs the `mAI` micros
 
 ## The Nature and Use of mimik ai
 
-mimOE utilizes mimik's edgeEngine runtime and mimik Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimik ai, a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
+mimik ai utilizes mimik's mim OE runtime and mimik Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimik ai, a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
 
 ## AI Focused Microservices
 
-mim OE publishes several microservices that execute under the mim OE runtime on a given computing device. These microservices are:
+mimik ai publishes several microservices that execute under the mim OE runtime on a given computing device. These microservices are:
 
 |Microservice|Description||
 |----|----|----|
