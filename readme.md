@@ -125,7 +125,7 @@ As mentioned, an Agent Machine executes a prompt against a particular LLM or vec
 
 ![Logical Architecture](./images/logical-agent-architecture.png)
 
-The starting point for interacting with an Agent Machine is a prompt submitted to the edgeEngine runtime web server at port 8083. EdgeEngine passes the prompt onto the mimOE.ai microservice, which interacts with a particular AI model. If the Agent Machine runs the `mILM` microservice, it will access LLM stored locally on the machine. The Agent Machine will interact with a vector database if it runs the `mKB` microservice. If the Agent Machine runs the `mModelStore` microservice, it will interact with an AI model running elsewhere.
+The starting point for interacting with an Agent Machine is a prompt submitted to the mim OE runtime web server at port 8083. mim OE passes the prompt onto the microservice, which interacts with a particular AI model. If the Agent Machine runs the `mILM` microservice, it will access LLM stored locally on the machine. The Agent Machine will interact with a vector database if it runs the `mKB` microservice. If the Agent Machine runs the `mModelStore` microservice, it will interact with an AI model running elsewhere.
 
 Once the AI model processes the prompt, the result is returned to the edge microservice and then to the caller who submitted the prompt.
 
@@ -162,11 +162,11 @@ To get full benefit from reading this documentation, you need to have the follow
 * A mimik developer's account, which you create on the [Getting Started page of the mimik Developer Portal](https://console.mimik.com/create_account). (See the following figure.)
 ![Create Account](./images/create-account-01.png)
 * A general understanding of mimik technology because mimik ai is an extension. The following links refer to entries in the [mimik Developer Documentation](https://devdocs.mimik.com/) that describe the basics of mimik.
-  * [Introduction to edgeEngine](https://devdocs.mimik.com/introduction): Introduces a developer to the 3 essential components of mimik technology: the mim OE Runtime, the hybrid edgeCloud, and the edge Service Mesh.
+  * [Introduction to mim OE](https://devdocs.mimik.com/introduction): Introduces a developer to the three essential components of mimik technology: mim OE, the hybrid edgeCloud, and the edge Service Mesh.
   * [Key Concepts](https://devdocs.mimik.com/key-concepts): Describes the key concepts a developer needs to understand to work effectively with mim OE.
 .
 
-In addition to understanding the basics of mimik technology, a developer needs to understand the nature of large language models (LLM) and how they respond to prompts and queries submitted by end-users. LLMs are important part of mimOE.ai
+In addition to understanding the basics of mimik technology, a developer needs to understand the nature of large language models (LLM) and how they respond to prompts and queries submitted by end-users. LLMs are important part of mimik ai.
 
 # Getting Started
 
