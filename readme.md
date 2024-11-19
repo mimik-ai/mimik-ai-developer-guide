@@ -278,7 +278,7 @@ The table below describes the machine and releases of mim-OE-SE-Linux v3.13.1 th
 | |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
 |Scenario 2|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in previous in Scenario 1| |
-| |Agent Machine|Nvidia Orin Jetson Nano device| Click to download: [mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar](https://github.com/mim-OE/mim-OE-ai-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar)|
+| |Agent Machine|Nvidia Orin Jetson Nano device| Click to download: [mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar)|
 |Scenario 3|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in Scenario 1| |
 | |Agent Machine|Nvidia Orin Jetson Nano device installed in Scenario 2| |
