@@ -93,7 +93,7 @@ The figure below shows an instance of the edge Service Mesh with four Agent Mach
 
 ![Basic Architecture](./images/basic-architecture.png)
 
-A computing device is deemed an Agent machine when it runs one of the mimOE.ai microservices, `mILM`, `mKB`, or `mModelStore`. These microservices are intended to execute direct prompt interactions with an LLM or vector database.
+A computing device is deemed an Agent machine when it runs one of the microservices, `mILM`, `mKB`, or `mModelStore`. These microservices are intended to execute direct prompt interactions with an LLM or vector database.
 
 A computing device is deemed a Coordinator Machine when it runs the `mAI` microservice.
 
@@ -172,7 +172,7 @@ In addition to understanding the basics of mimik technology, a developer needs t
 
 ## Getting Essential Configuration Information
 
-To get the various devices within the edge Service Mesh integrated into mimOE.ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the edge Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
+To get the various devices within the edge Service Mesh integrated into mimik ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the edge Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
 
 * `clientId token`
 * `developerId token`
