@@ -1,13 +1,13 @@
 # Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [Introduction to mimOE.ai](#introduction-to-mimoeai)
-  - [Welcome to mimOE.ai](#welcome-to-mimoeai)
-  - [What is mimOE.ai?](#what-is-mimoeai)
-  - [Key Features and Benefits of mimOE.ai](#key-features-and-benefits-of-mimoeai)
+- [Introduction to mimik ai](#introduction-to-mimik-ai)
+  - [Welcome to mimik ai](#welcome-to-mimik-ai)
+  - [What is mimik ai?](#what-is-mimik-ai)
+  - [Key Features and Benefits of mimik ai](#key-features-and-benefits-of-mimik-ai)
 - [Core concepts and Architecture](#core-concepts-and-architecture)
   - [Understanding the Basic Architecture](#understanding-the-basic-architecture)
-  - [The Nature and Use of mimOE.ai](#the-nature-and-use-of-mimoeai)
+  - [The Nature and Use of mimik ai](#the-nature-and-use-of-mimik-ai)
   - [AI Focused Microservices](#ai-focused-microservices)
 - [Key Components](#key-components)
   - [Understanding Agent Machines](#understanding-agent-machines)
@@ -36,37 +36,37 @@
       - [Connecting a second instance of the User Console web server to the Coordinator Machine](#connecting-a-second-instance-of-the-user-console-web-server-to-the-coordinator-machine)
     - [Scenario 3: Setting Up and Running a Multi-Agent Collection](#scenario-3-setting-up-and-running-a-multi-agent-collection)
 
-# Introduction to mimOE.ai
+# Introduction to mimik ai
 
-## Welcome to mimOE.ai
+## Welcome to mimik ai
 
-Welcome to mimOE.ai, a cutting-edge product designed to revolutionize AI-powered application development. mimOE.ai is built to make developing AI applications easier, more secure, and more cost-effective. Whether you're a seasoned developer or just starting your journey in AI application development, mimOE.ai provides the tools and infrastructure you need to create powerful, distributed AI solutions.
+Welcome to mimik ai, a cutting-edge product designed to revolutionize AI-powered application development. mimik ai is built to make developing AI applications easier, more secure, and more cost-effective. Whether you're a seasoned developer or just starting your journey in AI application development, mimik ai provides the tools and infrastructure you need to create powerful, distributed AI solutions.
 
-mimOE.ai empowers developers to create sophisticated AI applications that leverage distributed computing resources, local AI models, and advanced coordination capabilities. Whether you're building a simple chatbot or a complex multi-agent AI system, mimOE.ai provides the tools and infrastructure to bring your ideas to life.
+mimik ai empowers developers to create sophisticated AI applications that leverage distributed computing resources, local AI models, and advanced coordination capabilities. Whether you're building a simple chatbot or a complex multi-agent AI system, mimik ai provides the tools and infrastructure to bring your ideas to life.
 
-This documentation describes mimOE.ai and how it works. It provides explanations and a set of hands-on demonstration projects showing developers how to work with the technology. The demonstration projects are progressive in that each builds upon activities implemented in a previous demonstration project.
+This documentation describes mimik ai and how it works. It provides explanations and a set of hands-on demonstration projects showing developers how to work with the technology. The demonstration projects are progressive in that each builds upon activities implemented in a previous demonstration project.
 
-The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a  single agent. In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. You’ll also make a distinctly named Agent Collection on the Coordinator Machine for this scenario. In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
+The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a single agent. In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. You’ll also make a distinctly named Agent Collection on the Coordinator Machine for this scenario. In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
 
 Before discussing each scenario, a developer must understand the essential concepts and components of mimOE.ai. Once a developer understands these essentials, we'll provide the instructions for a developer to get direct hands-on experience with the scenarios via demonstration projects.
 
-Let's start by answering the question, what is mimOE.ai?
+Let's start by answering the question, what is mimik ai?
 
-## What is mimOE.ai?
+## What is mimik ai?
 
-mimOE.ai is a product intended to make developing AI-powered applications more accessible, secure, and cost-effective.
+mimik ai is a product intended to make developing AI-powered applications more accessible, secure, and cost-effective.
 
-In terms of application development, mimOE.ai is organized into two parts. The first part is edgeEngine. edgeEngine is the mimik technology that is the runtime that enrolls a machine into the [mimik Service Mesh](https://devdocs.mimik.com/introduction/04-index) and provides discovery capability to other edgeEngine-enabled machines running on the mimik Service Mesh. edgeEngine is also an API gateway to the various mimik microservices running on a given machine.
+In terms of application development, mimik ai is organized into two parts. The first part is mim OE. mim OE is the mimik technology that is the runtime that enrolls a machine into the [edge Service Mesh](https://devdocs.mimik.com/introduction/04-index) and provides discovery capability to other mim OE-enabled machines running on the edge Service Mesh. mim OE is also an API gateway to the various edge microservices running on a given machine.
 
-The second part of mimOE.ai is the various mimOE.ai microservices that enable interaction with AI assets such as large language models (LLM) and vector databases. These assets are hosted locally on a machine running edgeEngine. These microservices are `mILM`, `mAI`, `mKB`, and `mModelStore`.
+The second part of mimik ai is the various edge microservices that enable interaction with AI assets such as large language models (LLM) and vector databases. These assets are hosted locally on a machine running mim OE. These microservices are `mILM`, `mAI`, `mKB`, and `mModelStore`.
 
 The figure below describes the various deployment units.
 
-![mimOE.ai deployment units](./images/mimEO-ai-parts.png)
+![mimik ai deployment units](./images/mimEO-ai-parts.png)
 
-From a developer's point of view, the vital thing to understand about mimOE.ai is that the technology is a collection of deployment units. edgeEngine is the deployment unit that needs to be installed on any machine that implements mimOE.ai. The other deployment units are the various AI-focused microservices published by mimik, `mILM`, `mAI`, `mKB`, and `mModelStore`. You'll learn how to use these microservices in sections to come.
+From a developer's point of view, the vital thing to understand about mimik ai is that the technology is a collection of deployment units. mim OE is the deployment unit that needs to be installed on any machine that implements mimik ai. The other deployment units are the various AI-focused microservices published by mimik, `mILM`, `mAI`, `mKB`, and `mModelStore`. You'll learn how to use these microservices in sections to come.
 
-## Key Features and Benefits of mimOE.ai
+## Key Features and Benefits of mimik ai
 
 Its key features are:
 
@@ -87,7 +87,7 @@ The main benefits are:
 
 ## Understanding the Basic Architecture
 
-Under mimOE.ai, two types of machines are running on a mimik Service Mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimOE.ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
+Under mimik ai, two types of machines are running on a edge Service Mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimik ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
 
 The figure below shows an instance of the mimik Service Mesh with four Agent Machines and a Coordinator Machine.
 
@@ -99,13 +99,13 @@ A computing device is deemed a Coordinator Machine when it runs the `mAI` micros
 
 **NOTE:** It is possible for a computing device to be both an Agent Machine and a Coordinator Machine. However, this capability is an advanced topic beyond the scope of this introductory documentation.
 
-## The Nature and Use of mimOE.ai
+## The Nature and Use of mimik ai
 
-mimOE utilizes mimik's edgeEngine runtime and mimik Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimOE.ai a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
+mimOE utilizes mimik's edgeEngine runtime and mimik Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimik ai, a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
 
 ## AI Focused Microservices
 
-mimOE publishes several microservices that execute under the edgeEngine runtime on a given computing device. These microservices are:
+mim OE publishes several microservices that execute under the mim OE runtime on a given computing device. These microservices are:
 
 |Microservice|Description||
 |----|----|----|
@@ -115,7 +115,7 @@ mimOE publishes several microservices that execute under the edgeEngine runtime 
 |mModelStore|A microservice that stores AI models and exposes discoverable API to allow other components (mILM, for example) to fetch the model for its consumption. The component that fetches the model can be on the same machine or a different machine.|Go to the release page [HERE](https://github.com/edgeMicroservice/mModelStore)|
 | mInsight|A microservice that allows a developer to access the context in which the node running mInsight is. It provides insights into AI agents’ interactions and their operating context. The context is based on three scopes: network, proximity, and account, and it contains the list of nodes with their attributes and the microservices (mKB, mAI, mILM, mModelStore, and others) running on each node.|Go to the release page [HERE](https://github.com/edgeMicroservice/mInsight)|
 
-In short, mimOE.ai's enhancements make working with AI faster, more secure, and more accurate.
+In short, mimik ai's enhancements make working with AI faster, more secure, and more accurate.
 
 # Key Components
 
@@ -127,7 +127,7 @@ As mentioned, an Agent Machine executes a prompt against a particular LLM or vec
 
 The starting point for interacting with an Agent Machine is a prompt submitted to the edgeEngine runtime web server at port 8083. EdgeEngine passes the prompt onto the mimOE.ai microservice, which interacts with a particular AI model. If the Agent Machine runs the `mILM` microservice, it will access LLM stored locally on the machine. The Agent Machine will interact with a vector database if it runs the `mKB` microservice. If the Agent Machine runs the `mModelStore` microservice, it will interact with an AI model running elsewhere.
 
-Once the AI model processes the prompt, the result is returned to the mimOE.ai microservice and then returned to the caller who submitted the prompt.
+Once the AI model processes the prompt, the result is returned to the edge microservice and then returned to the caller who submitted the prompt.
 
 Working with an Agent Machine is covered in [a section to come](#getting-a-single-agent-machine-up-and-running).
 
