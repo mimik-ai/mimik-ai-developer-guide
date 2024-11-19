@@ -246,7 +246,7 @@ When it comes time to do the hands-on demonstration projects, you'll need to hav
 * A development machine running a copy of Visual Studio Code
 * The [Rest Client extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient) installed in Visual Studio code
 * Working familiarity using the Rest Client. (Read [this tutorial](https://medium.com/lseg-developer-community/how-to-test-rest-api-with-visual-studio-code-rest-client-extensions-9f2e061d0299) to get a basic understanding of how to use the Rest Client.)
-* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of edgeEngine for mimOE.ai. This is a version of edgeEngine formally called `mimOE-SE-Linux v3.12.0` and can be downloaded from the [mimOE-SE-Linux v3.12.0 Release Page on GitHub](https://github.com/mimik-mimOE/mimOE-SE-Linux/).
+* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of mim OE for mimik ai. This version of mim OE can be downloaded from the [mimOE-SE-Linux v3.13.1 Release Page on GitHub](https://github.com/mim-OE/mimOE-SE-Linux/).
 
 ## Hardware and Software Recommendations
 
@@ -273,7 +273,7 @@ The table below describes the machine and releases of mimOE-SE-Linux v3.13.1 tha
 
 |Scenario|Machine|Type|Version of mimOE-SE-Linux|
 |:---------|----|----|----|
-|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mim-OE-ai-SE-linux-developer-AMD64-v3.12.0.tar](https://github.com/mim-OE/mimOE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar) or [mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar)|
+|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar](https://github.com/mim-OE/mimOE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar) or [mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar)|
 | |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
 |Scenario 2|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in previous in Scenario 1| |
