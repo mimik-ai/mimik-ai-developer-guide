@@ -340,7 +340,7 @@ The figure below shows the demonstration scenario you'll be able to implement.
 
 #### Adding an Nvidia Orin Jetson Nano/AGX device as an Agent Machine
 
-To learn how to add an Nvidia Orin Jetson Nano/AGX device as an Agent Machine on the mimik Service Mesh, go [here](./02-nvidia-architecture/nvidia-agent-machine/).
+To learn how to add an Nvidia Orin Jetson Nano/AGX device as an Agent Machine on the edge Service Mesh, go [here](./02-nvidia-architecture/nvidia-agent-machine/).
 
 #### Loading an AI Model to the Nvidia Device as an Agent Machine
 
@@ -360,7 +360,7 @@ Please follow the instructions for setting up and using the new Agent Collection
 
 ### Scenario 3: Setting Up and Running a Multi-Agent Collection
 
-This scenario enhances the previous one. In this scenario, you will add two more Agent Machines running edgeEngine to the mimik Service Mesh. Each machine will run the `mILM` microservice. Also, each machine will have an LLM loaded directly on it. The model is the same one configured and used on the single Agent Machine in the previous scenario.
+This scenario enhances the previous one. In this scenario, you will add two more Agent Machines running mim OE to the edge Service Mesh. Each machine will run the `mILM` microservice. Also, each machine will have an LLM loaded directly on it. The model is the same one configured and used on the single Agent Machine in the previous scenario.
 
 ![Basic Architecture](./images/basic-architecture.png)
 
