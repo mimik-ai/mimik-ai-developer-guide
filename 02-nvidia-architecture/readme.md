@@ -7,8 +7,8 @@ This scenario builds on the work done in the previous scenario [Setting Up and R
 # What to have on hand
 
 * An Nvidia Orin Jetson Nano or an Nvidia Orin Jetson Nano/AGX device running Ubuntu 22.04
-* The Nvidia device need to have the latest version of edgeEngine specifically intended for Nvidia machines. The deployment `.tar` file is named, `mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.12.0.tar`. Download and installation instructions can be found on [the mimik Release Page here](https://github.com/mim-OE/mim-OE-SE-Linux/).
-* Once edgeEngine is up and running the Nvidia device needs to have port 8083 exposed.
+* The Nvidia device need to have the latest version of mim OE specifically intended for Nvidia machines. The deployment `.tar` file is named, `mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.12.0.tar`. Download and installation instructions can be found on [the mimik Release Page here](https://github.com/mim-OE/mim-OE-SE-Linux/).
+* Once mim OE is up and running the Nvidia device needs to have port 8083 exposed.
 
 We assume that you have an actual Nvidia device on hand and that the device has Ubuntu 22.04 installed on it.
 
