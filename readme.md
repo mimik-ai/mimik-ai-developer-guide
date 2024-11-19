@@ -48,7 +48,7 @@ This documentation describes mimik ai and how it works. It provides explanations
 
 The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a single agent. In the `second scenario`, you'll add an Nvidia Orin device to the edge Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine. In the `third scenario`, you'll add two more Agent Machines to the edge Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
 
-Before discussing each scenario, a developer must understand the essential concepts and components of mimOE.ai. Once a developer understands these essentials, we'll provide the instructions for a developer to get direct hands-on experience with the scenarios via demonstration projects.
+Before discussing each scenario, a developer must understand the essential concepts and components of mimik ai. Once a developer understands these essentials, we'll provide the instructions for a developer to get direct hands-on experience with the scenarios via demonstration projects.
 
 Let's start by answering the question, what is mimik ai?
 
@@ -247,7 +247,7 @@ When it comes time to do the hands-on demonstration projects, you'll need to hav
 * A development machine running a copy of Visual Studio Code
 * The [Rest Client extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient) installed in Visual Studio code
 * Working familiarity using the Rest Client. (Read [this tutorial](https://medium.com/lseg-developer-community/how-to-test-rest-api-with-visual-studio-code-rest-client-extensions-9f2e061d0299) to get a basic understanding of how to use the Rest Client.)
-* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of mim OE for mimik ai. This version of mim OE can be downloaded from the [mimOE-SE-Linux v3.13.1 Release Page on GitHub](https://github.com/mim-OE/mimOE-SE-Linux/).
+* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of mim OE for mimik ai. This version of mim OE can be downloaded from the [mim-OE-SE-Linux v3.13.1 Release Page on GitHub](https://github.com/mim-OE/mim-OE-SE-Linux/).
 
 ## Hardware and Software Recommendations
 
@@ -267,14 +267,14 @@ For `Scenario 1`, we recommend using an AMD computer for the Coordinator Machine
 
 In `Scenario 2,` we demonstrate incorporating an Nvidia Orin Jetson Nano device into the edge Service Mesh. So, you will actually need one available. In Scenario 2, you will use the existing Coordinator Machine you created in Scenario 1.
 
-In `Scenario 3`, you will add two more Agent Machines to the edge Service Mesh and configure mimOE.ai to support the additional AMD or ARM computers.
+In `Scenario 3`, you will add two more Agent Machines to the edge Service Mesh and configure mimik ai to support the additional AMD or ARM computers.
 
 
-The table below describes the machine and releases of mimOE-SE-Linux v3.13.1 that you will need to have available for each scenario.
+The table below describes the machine and releases of mim-OE-SE-Linux v3.13.1 that you will need to have available for each scenario.
 
-|Scenario|Machine|Type|Version of mimOE-SE-Linux|
+|Scenario|Machine|Type|Version of mim-OE-SE-Linux|
 |:---------|----|----|----|
-|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar](https://github.com/mim-OE/mimOE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar) or [mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar)|
+|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar) or [mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar)|
 | |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
 |Scenario 2|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in previous in Scenario 1| |
