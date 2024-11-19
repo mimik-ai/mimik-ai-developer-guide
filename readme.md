@@ -171,7 +171,7 @@ In addition to understanding the basics of mimik technology, a developer needs t
 
 ## Getting Essential Configuration Information
 
-To get the various devices within the mimik Service Mesh integrated into mimOE.ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the mimik Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
+To get the various devices within the edge Service Mesh integrated into mimOE.ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the edge Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
 
 * `clientId token`
 * `developerId token`
