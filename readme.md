@@ -375,5 +375,5 @@ As in the demonstration scenario executed previously, getting a Multi-Agent Coll
 * Configuring the Coordinator Machine to support an additional Agent Collection that includes the new Agent Machines and those Agent Machines created previously.
 * Connecting a new instance of User Console to the Coordinator Machine via its nodeId. The new instance of the User Console web server for this scenario will run on a new distinct port and will be bound to the Agent Collection created in this demonstration scenario.
 
-To learn the details of getting Scenario 3 up and running, go [HERE](03-multi-agent-architecture/README.md).
+To learn the details of getting Scenario 3 up and running, go [here](03-multi-agent-architecture/README.md).
 
