@@ -24,7 +24,7 @@ The machines in the scenario are the Agent Machines created previously in Scenar
 
 # What You Need to Have On Hand
 
-This scenario requires that you have an additional machine on hand with either AMD/Intel or ARM processors. Each computer needs to be running the [latest version of edgeEngine](https://github.com/mim-OE/mim-OE-SE-Linux).
+This scenario requires that you have an additional machine on hand with either AMD/Intel or ARM processors. Each computer needs to be running the [latest version of mim OE](https://github.com/mim-OE/mim-OE-SE-Linux).
 
 **We also assume** that you have done Scenario 1 and Scenario 2 previously and that the machines configured and added to the edge Service Mesh in those scenarios are operational and accessible.
 
