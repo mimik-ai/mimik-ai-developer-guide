@@ -260,13 +260,13 @@ To review, these scenarios are:
 
 (The details about the nature and use of an Agent Machine and a Coordinator Machine are described in the section [Understanding the Basic Architecture](#understanding-the-basic-architecture) that follows later on in this document.)
   
-These demonstration scenarios involve running several computers on the mimik Service Mesh. These computers will need to run the latest edgeEngine version for mimOE.ai.
+These demonstration scenarios involve running several computers on the edge Service Mesh. These computers must run the latest mimi OE version for mimik ai.
 
 For `Scenario 1`, we recommend using an AMD computer for the Coordinator Machine and an ARM or AMD computer for the single Agent Machine.
 
-In `Scenario 2,` we demonstrate incorporating an Nvidia Orin Jetson Nano device into the mimik Service Mesh. So, you will actually need one available. In Scenario 2, you will use the existing Coordinator Machine you created in Scenario 1.
+In `Scenario 2,` we demonstrate incorporating an Nvidia Orin Jetson Nano device into the edge Service Mesh. So, you will actually need one available. In Scenario 2, you will use the existing Coordinator Machine you created in Scenario 1.
 
-In `Scenario 3`, you will add two more Agent Machines to the mimik Service Mesh and configure mimOE.ai to support the additional AMD or ARM computers.
+In `Scenario 3`, you will add two more Agent Machines to the edge Service Mesh and configure mimOE.ai to support the additional AMD or ARM computers.
 
 
 The table below describes the machine and releases of mimOE-SE-Linux v3.13.1 that you will need to have available for each scenario.
@@ -290,9 +290,9 @@ The details of each release, as well as Quickstart instructions for installation
 
 The `first scenario` you'll run is a single-agent scenario under Agent Collection.
 
-In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you created in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine.
+In the `second scenario`, you'll add an Nvidia Orin device to the edge Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you created in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine.
 
-In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection.
+In the `third scenario`, you'll add two more Agent Machines to the edge Service Mesh and run all under another distinctly named Agent Collection.
 
 ### Scenario 1: Setting up and running a Single Agent Collection scenario
 
