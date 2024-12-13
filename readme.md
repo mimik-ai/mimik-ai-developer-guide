@@ -182,7 +182,7 @@ The sections that follow describe the details of the required information listed
 
 ### Getting the clientId token and the developerId token
 
-The figure below describes the steps necessary to get the `clientId token` and `developerId token` from the [mimik Developer Portal](https://console.mimik.com/). A developer will navigate to the Developer Portal and do the steps described in the figure below according to the callout numbers in the illustration.
+The figure below describes the steps necessary to get the `clientId token` and `developerId token` from the [mimik Developer Portal](https://console.mimik.com/). A developer will navigate to the Developer Portal and do the steps described in the figure below according to the callout numbers in the illustration. The same clientId should be used for the congiration of all mimOE
 
 ![ClientId and DeveloperID Tokens](./images/console-process-01.png)
 
