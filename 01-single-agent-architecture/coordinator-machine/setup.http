@@ -7,17 +7,18 @@
 @agentCollectionName={{$dotenv AGENT_COLLECTION_NAME}}
 
 ### Microservices
-@maiTarName = mai-v1-1.7.0.tar
-@mlmTarName = mim-v1-1.6.0.tar
+@maiTarName=mai-v1-1.8.1.tar
+@mlmTarName=milm-v1-1.9.1.tar
 ###Settings
 @tokenScope=openid edge:mcm edge:clusters edge:account:associate
 @modelUrl={{$dotenv MODEL_URL}}
 
 ### Node Info
 ### Set the following values using the information returned from each constituent node's setup.http file.
-@nodeId_AGENT_MACHINE_1 = {{$dotenv NODE_ID_AGENT_1}}
-@nodeId_COORDINATOR = {{$dotenv NODE_ID_COORDINATOR}}
+@nodeId_AGENT_MACHINE_1={{$dotenv NODE_ID_AGENT_1}}
+@nodeId_COORDINATOR={{$dotenv NODE_ID_COORDINATOR}}
 
+@summaryTemplate=Must start reply with 'Here is a summary:'.  Given the context below, synthesize the information and provide a unified, concise summary in short point form.\n\n<context>{{mergedContent}}</context>
 ### Setup API's 
 
 #### Step 1: Get Target Device Information. This call returns the NODE_ID for the device
@@ -104,29 +105,28 @@ POST {{host}}/mcm/v1/containers
 Authorization: Bearer {{edgeToken}}
 
 {
-    "name": "mim-v1",
-    "image": "mim-v1",
+    "name": "milm-v1",
+    "image": "milm-v1",
     "env": {
-      "MCM.BASE_API_PATH": "/mim/v1",
+      "MCM.BASE_API_PATH": "/milm/v1",
       "API_KEY": "{{apiKey}}",
       "MCM.API_ALIAS": "true",
       "MCM.OTEL_SUPPORT": "true"
     }
 }
 
-### Step 9: Download model (Google Gemma 2b)
+### Step 9: Download model
 ### Execute using VS Code's Copy Request as cURL because VS Code doesn't know how to handle streaming API
-POST {{host}}/api/mim/v1/models
+POST {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
 {
-  "id": "lmstudio-ai/gemma-2b-it-GGUF",
+  "id": "Llama-3.2-1B-Instruct-GGUF",
   "object": "model",
-  "url": "{{modelUrl}}",
-  "owned_by": "lmstudio-ai"
+  "kind": "llm",
+  "url": "{{modelUrl}}"
 }
-
 
 #### Step 10: Get Images to verify deployment
 GET {{host}}/mcm/v1/images
@@ -137,7 +137,7 @@ GET {{host}}/mcm/v1/containers
 Authorization: Bearer {{edgeToken}}
 
 ### Step 12: View deployed models 
-GET {{host}}/api/mim/v1/models
+GET {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
@@ -152,16 +152,16 @@ Authorization: bearer {{apiKey}}
   "modelfile": {
     "prompts": [
       {
-        "url": "{{nodeId_AGENT_MACHINE_1}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-        "model": "lmstudio-ai/gemma-2b-it-GGUF",
+        "url": "{{nodeId_AGENT_MACHINE_1}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+        "model": "Llama-3.2-1B-Instruct-GGUF",
         "apikey": "Bearer {{apiKey}}",
         "required": true
       }
     ],
     "summary": {
-      "template": "Given the responses from assistants below, synthesize the information to create a unified, concise summary. Provide a coherent answer that integrates these perspectives.\n-----\n\n${{mergedContent}}",
-      "url": "{{nodeId_COORDINATOR}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-      "model": "lmstudio-ai/gemma-2b-it-GGUF",
+      "template": "{{summaryTemplate}}",
+      "url": "{{nodeId_COORDINATOR}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+      "model": "Llama-3.2-1B-Instruct-GGUF",
       "apikey": "Bearer {{apiKey}}",
       "required": true
     }

@@ -34,7 +34,7 @@ The purpose of this document is to explain the steps to take to get a Coordinato
 
 In order to implement this scenario you will need:
 
-* A Ubuntu 22.04 machine running the [AI release of mim OE](https://github.com/mim-OE/mim-OE-SE-Linux/).
+* A Ubuntu 22.04 machine running the [mimOE.ai release of edgeEngine](https://github.com/mimik-mimOE/mimOE-SE-Linux/).
 * The Ubuntu machine needs to have port 8083 exposed
 
 # What you'll be doing
@@ -70,7 +70,7 @@ The `.env` file will have the following content
 # Environment variables for the Coordinator Machine
 NODE_ID_AGENT_1=<NODE_ID_OF_THE_AGENT_MACHINE>
 NODE_ID_COORDINATOR=<NODE_ID_OF_THE_COORDINATOR_MACHINE>
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
 HOST_IP_ADDRESS=<IP_ADDRESS_OF_THE_COORDINATOR_COMPUTER>
 CLIENT_ID=<YOUR_CLIENT_ID_TOKEN>
 DEVELOPER_ID_TOKEN=<YOUR_DEVELOPER_ID_TOKEN>
@@ -85,7 +85,7 @@ Here is an example of the `.env` file with environment variable values added:
 NODE_ID_AGENT_1=85513d8f180efd7d645af637a2278081097b60ecba3c48cbf615aed9
 NODE_ID_COORDINATOR=62de3e67c00fcce7abd6a6634eb4686653156454b97a5ed8849e975c
 
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
 HOST_IP_ADDRESS=192.168.86.21
 CLIENT_ID=a5efxxxx-1fce-469a-xxxx-38279c87xxxx
 DEVELOPER_ID_TOKEN=eyJhbGciOiJSUzI1NiIsIxxxxxxxxxxXVCIsImtpZCI6Ik80d0NjU0FFMkxkX1VTR3ZSNjdmU18yQlNuZGhxxxxxxxxxx2trUlAyVE0ifQ.eyJzdWIiOiIyOTcyMTc0NjAxOTE2NTE4NDAwIiwiZW1haWwiOiIyOTcyMTc0NjAxOTE2NTE4NDAwxxxxxxxxxxUuY29tIiwiYXVkIjoiYTVlZmUzY2ItMWZjZS00NjlhLWI4xxxxxxxxxxljODdhNzU5IiwiZXhwIjoxNxxxxxxxxxxxLCJpYXQiOjE3MjI4NzcxMzEsImlzcyI6Imh0dHBzOi8vZGV2Y29uc29sZS1taWQubWltaWsuY29tIn0.TbspXGBqejwYLjTSAVVy4YEbHQpMQ1snwrKPzrFVOTBFom_i5n-r13Cr8oxaxcw4CpvhyZak1HYnN2XTgP0cp6_nwSl7hSM00AR5hwFtmnhyHKV2NLkqb90t-YrwSNErdWqLLeh8GDcNYO7XLG69FgJuTtUMbsmV_QsW70imgKozr_hNqAPXg6SgApaMJPdbe-5Z94ZFsqkYb8diD2-675RQXozPHWIoPNkebNCAMGLupKZEnLIhsHHobNvlb7ZmxUZGhEpxGwcY9qxQ4N3E-tlZFVJ7hzSx0OXgUJGxxxxxxxxxxg8dreqnCUq2o0-TpGDSBNuw2Nxm1RkWLD6fQA
@@ -119,8 +119,8 @@ The first few lines of the `setup.http` file as shown below creates the REST Cli
 @agentCollectionName={{$dotenv AGENT_COLLECTION_NAME}}
 
 ### Microservices
-@maiTarName = mai-v1-1.7.0.tar
-@mlmTarName = mim-v1-1.6.0.tar
+@maiTarName=mai-v1-1.8.1.tar
+@mlmTarName=milm-v1-1.9.1.tar
 ###Settings
 @tokenScope=openid edge:mcm edge:clusters edge:account:associate
 @modelUrl={{$dotenv MODEL_URL}}
@@ -133,7 +133,7 @@ The first few lines of the `setup.http` file as shown below creates the REST Cli
 
 ### Step 1
 
-**Step** 1 as shown below is a command that queries the mim OE instance running on the targeted Agent Machine to get run time information.
+**Step** 1 as shown below is a command that queries the edgeEngine instance running on the targeted Agent Machine to get run time information.
 
 **NOTE:** Step 1 will return a `nodeId` as described in a previous readme [here](../../readme.md#getting-a-nodeid). Save the `nodeId` value once it's returned. You'll need it when you are configuring the Coordinator Machine later on.
 
@@ -150,7 +150,7 @@ Content-Content-Type: application/json
 
 ### Step 2
 
-**Step 2**, described below, returns the value for the `edgeId` token and assigns it the file variable `@edgeIdToken`. The `edgeId` token is required to get an Access Token from the mim OE instance running on the targeted Agent Machine.
+**Step 2**, described below, returns the value for the `edgeId` token and assigns it the file variable `@edgeIdToken`. The `edgeId` token is required to get an Access Token from the edgeEngine instance running on the targeted Agent Machine.
 
 To learn more about the purpose and use of an Access Token, read the details in the [mimik Developer Documentation](https://devdocs.mimik.com/key-concepts/03-index#accesstoken).
 
@@ -188,7 +188,7 @@ client_id={{clientId}}
 
 ### Step 4
 
-**Step 4** associates the Access Token retrieved previously to the running instance of mim OE. The Access Token enables the Agent Machine to be part of the edge Service Mesh. To learn more about the details of the edge Service mesh, read the webpage [Understanding the edge Service Mesh](https://devdocs.mimik.com/key-concepts/06-index) in the mimik Developer Documentation.
+**Step 4** associates the Access Token retrieved previously to the running instance of edgeEngine. The Access Token enables the Agent Machine to be part of the mimik Service Mesh. To learn more about the details of the mimik Service mesh, read the webpage [Understanding the edgeEngine Service Mesh](https://devdocs.mimik.com/key-concepts/06-index) in the mimik Developer Documentation.
 
 ```
 #### Step 4: Associate device with account 
@@ -264,10 +264,10 @@ POST {{host}}/mcm/v1/containers
 Authorization: Bearer {{edgeToken}}
 
 {
-    "name": "mim-v1",
-    "image": "mim-v1",
+    "name": "milm-v1",
+    "image": "milm-v1",
     "env": {
-      "MCM.BASE_API_PATH": "/mim/v1",
+      "MCM.BASE_API_PATH": "/milm/v1",
       "API_KEY": "{{apiKey}}",
       "MCM.API_ALIAS": "true",
       "MCM.OTEL_SUPPORT": "true"
@@ -282,14 +282,14 @@ Authorization: Bearer {{edgeToken}}
 **IMPORTANT:** Execute using VS Code's Copy Request as cURL because VS Code doesn't know how to handle streaming API.
 
 ```
-### Step 9: Download model (Google Gemma 2b)
+### Step 9: Download model
 ### Execute using VS Code's Copy Request as cURL because VS Code doesn't know how to handle streaming API
-POST {{host}}/api/mim/v1/models
+POST {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
 {
-  "id": "lmstudio-ai/gemma-2b-it-GGUF",
+  "id": "Llama-3.2-1B-Instruct-GGUF",
   "object": "model",
   "url": "{{modelUrl}}",
   "owned_by": "lmstudio-ai"
@@ -322,7 +322,7 @@ Authorization: Bearer {{edgeToken}}
 
 ```
 ### Step 12: View deployed models 
-GET {{host}}/api/mim/v1/models
+GET {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 ```
@@ -343,16 +343,16 @@ Authorization: bearer {{apiKey}}
   "modelfile": {
     "prompts": [
       {
-        "url": "{{nodeId_AGENT_MACHINE_1}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-        "model": "lmstudio-ai/gemma-2b-it-GGUF",
+        "url": "{{nodeId_AGENT_MACHINE_1}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+        "model": "Llama-3.2-1B-Instruct-GGUF",
         "apikey": "Bearer {{apiKey}}",
         "required": true
       },
     ],
     "summary": {
       "template": "Given the responses from assistants below, synthesize the information to create a unified, concise summary. Provide a coherent answer that integrates these perspectives.\n-----\n\n${{mergedContent}}",
-      "url": "{{@nodeId_COORDINATOR}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-      "model": "lmstudio-ai/gemma-2b-it-GGUF",
+      "url": "{{@nodeId_COORDINATOR}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+      "model": "Llama-3.2-1B-Instruct-GGUF",
       "apikey": "Bearer {{apiKey}}",
       "required": true
     }

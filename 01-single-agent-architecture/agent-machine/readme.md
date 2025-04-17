@@ -26,7 +26,7 @@ The purpose of this document is to explain the steps to take to get an Agent Mac
 
 In order to implement this scenario you will need:
 
-* A Ubuntu 22.04 machine running the [AI release of mim OE](https://github.com/mim-oe/mim-OE-SE-Linux/).
+* A Ubuntu 22.04 machine running the [mimOE.ai release of edgeEngine](https://github.com/mimik-mimOE/mimOE-SE-Linux/).
 * The Ubuntu machine needs to have port 8083 exposed
 
 # What you'll be doing
@@ -58,10 +58,14 @@ The `.env` file will have the following content
 
 ```
 # Environment variables for the Agent Machines
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
+
+HOST_PORT=8083
 HOST_IP_ADDRESS=<IP_ADDRESS_OF_THE_AGENT_MACHINE>
+
 CLIENT_ID=<YOUR_CLIENT_ID_TOKEN>
 DEVELOPER_ID_TOKEN=<YOUR_DEVELOPER_ID_TOKEN>
+
 API_KEY=1234
 ```
 
@@ -85,11 +89,11 @@ The first few lines of the `setup.http` file as shown below creates the REST Cli
 @apiKey={{$dotenv API_KEY}}
 ```
 
-The section that follow describes the value assigned to the `@tarName` which is the edge microservice that will be installed on the targeted Agent Machine. Also, the section describes the artificial intelligence model that will be installed on the Agent Machine according to the file variable `@modelUrl`.
+The section that follow describes the value assigned to the `@tarName` which is the mimOE.ai microservice that will be installed on the targeted Agent Machine. Also, the section describes the artificial intelligence model that will be installed on the Agent Machine according to the file variable `@modelUrl`.
 
 ```
 ### Microservice
-@tarName = mim-v1-1.6.0.tar
+@tarName = milm-v1-1.9.1.tar
 
 ###Settings
 @tokenScope=openid edge:mcm edge:clusters edge:account:associate
@@ -101,7 +105,7 @@ An explanation of each step you'll execute the `setup.http` file are described i
 
 ### Step 1
 
-Step 1, as shown below, is a command that queries the mim OE instance running on the targeted Agent Machine to get run-time information.
+Step 1, as shown below, is a command that queries the edgeEngine instance running on the targeted Agent Machine to get run-time information.
 
 **NOTE:** Step 1 will return a `nodeId` as described in a previous readme [here](../../readme.md#getting-a-nodeid). Save the `nodeId` value once it's returned. You'll need it when you are configuring the Coordinator Machine later on.
 
@@ -118,7 +122,7 @@ Content-Content-Type: application/json
 
 ### Step 2
 
-**Step 2**, described below, returns the value for the `edgeId` token and assigns it the file variable `@edgeIdToken`. The `edgeId` token is required to get an Access Token from the mim OE instance running on the targeted Agent Machine.
+**Step 2**, described below, returns the value for the `edgeId` token and assigns it the file variable `@edgeIdToken`. The `edgeId` token is required to get an Access Token from the edgeEngine instance running on the targeted Agent Machine.
 
 To learn more about the purpose and use of an Access Token, read the details in the [mimik Developer Documentation](https://devdocs.mimik.com/key-concepts/03-index#accesstoken).
 
@@ -156,7 +160,7 @@ client_id={{clientId}}
 
 ### Step 4
 
-**Step 4** associates the Access Token retrieved previously to the running instance of mim OE. The Access Token enables the Agent Machine to be part of the edge Service Mesh. To learn more about the details of the edge Service mesh, read the webpage [Understanding the edge Service Mesh](https://devdocs.mimik.com/key-concepts/06-index) in the mimik Developer Documentation.
+**Step 4** associates the Access Token retrieved previously to the running instance of edgeEngine. The Access Token enables the Agent Machine to be part of the mimik Service Mesh. To learn more about the details of the mimik Service mesh, read the webpage [Understanding the edgeEngine Service Mesh](https://devdocs.mimik.com/key-concepts/06-index) in the mimik Developer Documentation.
 
 ```
 #### Step 4: Associate device with account 
@@ -203,10 +207,10 @@ POST {{host}}/mcm/v1/containers
 Authorization: Bearer {{edgeToken}}
 
 {
-    "name": "mim-v1",
-    "image": "mim-v1",
+    "name": "milm-v1",
+    "image": "milm-v1",
     "env": {
-      "MCM.BASE_API_PATH": "/mim/v1",
+      "MCM.BASE_API_PATH": "/milm/v1",
       "API_KEY": "{{apiKey}}",
       "MCM.API_ALIAS": "true",
       "MCM.OTEL_SUPPORT": "true"
@@ -235,17 +239,17 @@ Authorization: Bearer {{edgeToken}}
 **BEWARE:** Typically artificial intelligence models are very large, on the order of 2 GB or more. Thus, the download will take time.
 
 ```
-### Step 9: Download model (Google Gemma 2b)
+### Step 9: Download model
 ### Copy as cURL because VS Code doesn't know how to handle streaming API
-POST {{host}}/api/mim/v1/models
+POST {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
 {
-  "id": "lmstudio-ai/gemma-2b-it-GGUF",
+  "id": "Llama-3.2-1B-Instruct-GGUF",
   "object": "model",
-  "url": "{{modelUrl}}",
-  "owned_by": "lmstudio-ai"
+  "kind": "llm",
+  "url": "{{modelUrl}}"
 }
 ```
 
@@ -255,14 +259,14 @@ Authorization: bearer {{apiKey}}
 
 ```
 ### Step 10: View deployed models 
-GET {{host}}/api/mim/v1/models
+GET {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 ```
 
 ### Step 11
 
-**Step 11** executes a prompt against the model by way of the `mILM` microservice. This action verifies that the model is installed properly and is up and running.
+**Step 11** executes a prompt against the model by way of the mimik `mILM` microservice. This action verifies that the model is installed properly and is up and running.
 
 ```
 ##### Execute the prompt that exercises the microservice #####
@@ -273,12 +277,11 @@ Content-Type: application/json
 Authorization: Bearer {{apiKey}}
 
 {
-  "model": "lmstudio-ai/gemma-2b-it-GGUF",
+  "model": "Llama-3.2-1B-Instruct-GGUF",
   "messages": [ 
     { "role": "user", "content": "Who were the first 3 Presidents of the United States" }
   ], 
-  "temperature": 0.7, 
-  "max_tokens": -1,
+  "temperature": 0.7,
   "stream": true
 }
 ```

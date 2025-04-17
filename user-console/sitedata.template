@@ -1,0 +1,3 @@
+const config = {
+  "COORDINATOR_IP_ADDRESS": "<COORDINATOR_IP_ADDRESS>"
+};

@@ -18,15 +18,15 @@
   - [Step 2: Running the User Console web server](#step-2-running-the-user-console-web-server)
 
 
-The purpose of Scenario 3 is to demonstrate how to add Agent Machines to the edge Service Mesh and then to modify the existing Coordinator Machine by adding a new Agent Collection that supports Multi Agent Machines.
+The purpose of Scenario 3 is to demonstrate how to add Agent Machines to the mimik Service Mesh and then to modify the existing Coordinator Machine by adding a new Agent Collection that supports Multi Agent Machines.
 
 The machines in the scenario are the Agent Machines created previously in Scenario 1 and 2, plus a new Agent Machine you'll create in this scenario.
 
 # What You Need to Have On Hand
 
-This scenario requires that you have an additional machine on hand with either AMD/Intel or ARM processors. Each computer needs to be running the [latest version of mim OE](https://github.com/mim-OE/mim-OE-SE-Linux).
+This scenario requires that you have an additional machine on hand with either AMD/Intel or ARM processors. Each computer needs to be running the [latest version of edgeEngine](https://github.com/mimik-mimOE/mimOE-SE-Linux).
 
-**We also assume** that you have done Scenario 1 and Scenario 2 previously and that the machines configured and added to the edge Service Mesh in those scenarios are operational and accessible.
+**We also assume** that you have done Scenario 1 and Scenario 2 previously and that the machines configured and added to the mimik Service Mesh in those scenarios are operational and accessible.
 
 # What You'll be Doing
 
@@ -34,13 +34,13 @@ In this scenario, you will provision a new Agent Machine using Visual Studio RES
 
 Then, you'll define a new Agent Collection on the existing Coordinator Machine that has the new Agent Machine created in this scenario along with the two Agent Machines created previously in Scenario 1 and Scenario 2.
 
-Finally, you'll create an instance of the User Console web server. You'll configure the User Console web server to work with the newly created Agent Collection. Once the User Console web server is configured, you'll be able to submit AI prompts to the edge Service Mesh via the Coordinator Machine.
+Finally, you'll create an instance of the User Console web server. You'll configure the User Console web server to work with the newly created Agent Collection. Once the User Console web server is configured, you'll be able to submit AI prompts to the mimik Service Mesh via the Coordinator Machine.
 
 The Coordinator Machine will return a result that includes the response from each Agent Machine in the new Agent Collection. Also, the Coordinator Machine will return a unified response composed of the responses from each Agent Machine.
 
 |IMPORTANT NOTE|
 |:----:|
-|The **maximum** number of Agent Machines an Agent Collection can have using the default LLM for this scenario, [gemma-2b-it-q4_k_m.gguf](https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/tree/main) is 3.|
+|The **maximum** number of Agent Machines an Agent Collection can have using the default LLM for this scenario, [Llama-3.2-1B-Instruct-Q8_0.gguf](https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/tree/main) is 3.|
 
 # Configuring the new Agent Machine
 
@@ -72,7 +72,8 @@ Here is an example of a properly configured `.env` file:
 
 ```
 # Environment variables for the Agent Machines
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
+HOST_PORT=8083
 HOST_IP_ADDRESS=192.168.86.48
 CLIENT_ID=a5efxxxx-1fce-469a-xxxx-3827xxxxa759
 DEVELOPER_ID_TOKEN=eyJhbGcixxxxxxxxxxxIsInR5cCI6IkpXVCIsImtpZCI6Ik80d0NjU0FFMkxkX1VTR3ZSNjdmU18yQlNuZGhuYjFxb2YyY2trUlAyVE0ifQ.eyJzdWIiOiIyOTcyMTc0NjAxOTE2NTE4NDxxxxxxxxxxxxWwiOiIyOTcyMTc0NjAxOTE2NTE4NDAwQGV4YW1wbGUuY29tIiwiYXVkIjoiYTVlZmUzY2ItMWZjZS00NjlhLWI4YWYtMzgyNzljODdhNzU5IiwiZXhwIjoxNzI2ODY5MDQ4LCJpYXQiOjE3MjQyNzcwNDgsImlzcyI6Imh0dHBzOi8vZGV2Y29uc29sZS1taWQubWltaWsuY29tIn0.YjEgCWTy0SpAP8pJwBG5P3ph2Z4mrCoexxxxxxxxxxxU8JhgLckim0vx2K-247nfnXyVx4orDR5ig8zBbnM0eGoizYVCvIxSsSD-UwuJoDNj3M1QTqsrzB__vlyzh8KRT6n5biTa4TT7ciUFHnTKiGYSdkMqomCc2muDrsnE9xG47g34qpLbnuKW3ZQJlcvkyeCxuVgD4TwNef_q4jlS22xhcCSvLaSLxP4M-xxxxxxxxxxxxxJpk2WNQ2DW-4CVnTMs6zZwBQcBtctE5o9WW8jdUofqs_o8aDVBJv89TW3nkdcLSiCSnAobw9SqoZginG9m1rejNqCr-pmAPLKIc-7u0Q
@@ -164,7 +165,7 @@ NODE_ID_AGENT_3=<NODE_ID_FOR_MACHINE_3_IN_AGENT_COLLECTION>
 
 NODE_ID_COORDINATOR=<NODE_ID_FOR_COORDINATOR_MACHINE>
 
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
 
 CLIENT_ID=<YOUR_CLIENT_ID>
 DEVELOPER_ID_TOKEN=<YOUR_DEVELOPER_ID>
@@ -188,7 +189,7 @@ NODE_ID_AGENT_3=8bafdd2a35e17133011bbc98062f132a4c5aca249a82936d0d27a49a
 
 NODE_ID_COORDINATOR=62de3e67c00fcce7abd6a6634eb4686653156454b97a5ed8849e975c
 
-MODEL_URL=https://huggingface.co/lmstudio-ai/gemma-2b-it-GGUF/resolve/main/gemma-2b-it-q4_k_m.gguf?download=true
+MODEL_URL=https://huggingface.co/lmstudio-community/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true
 CLIENT_ID=a5efxxxx-1fce-469a-xxxx-3827xxxxa759
 DEVELOPER_ID_TOKEN=eyJhbGcixxxxxxxxxxxIsInR5cCI6IkpXVCIsImtpZCI6Ik80d0NjU0FFMkxkX1VTR3ZSNjdmU18yQlNuZGhuYjFxb2YyY2trUlAyVE0ifQ.eyJzdWIiOiIyOTcyMTc0NjAxOTE2NTE4NDxxxxxxxxxxxxWwiOiIyOTcyMTc0NjAxOTE2NTE4NDAwQGV4YW1wbGUuY29tIiwiYXVkIjoiYTVlZmUzY2ItMWZjZS00NjlhLWI4YWYtMzgyNzljODdhNzU5IiwiZXhwIjoxNzI2ODY5MDQ4LCJpYXQiOjE3MjQyNzcwNDgsImlzcyI6Imh0dHBzOi8vZGV2Y29uc29sZS1taWQubWltaWsuY29tIn0.YjEgCWTy0SpAP8pJwBG5P3ph2Z4mrCoexxxxxxxxxxxU8JhgLckim0vx2K-247nfnXyVx4orDR5ig8zBbnM0eGoizYVCvIxSsSD-UwuJoDNj3M1QTqsrzB__vlyzh8KRT6n5biTa4TT7ciUFHnTKiGYSdkMqomCc2muDrsnE9xG47g34qpLbnuKW3ZQJlcvkyeCxuVgD4TwNef_q4jlS22xhcCSvLaSLxP4M-xxxxxxxxxxxxxJpk2WNQ2DW-4CVnTMs6zZwBQcBtctE5o9WW8jdUofqs_o8aDVBJv89TW3nkdcLSiCSnAobw9SqoZginG9m1rejNqCr-pmAPLKIc-7u0Q
 API_KEY=1234

@@ -4,7 +4,7 @@
 - [Introduction to mimik ai](#introduction-to-mimik-ai)
   - [Welcome to mimik ai](#welcome-to-mimik-ai)
   - [What is mimik ai?](#what-is-mimik-ai)
-  - [Key Features and Benefits of mimik ai](#key-features-and-benefits-of-mimik-ai)
+  - [Key Features and Benefits of mimik ai](#key-features-and-benefits-of-mimik-eai)
 - [Core concepts and Architecture](#core-concepts-and-architecture)
   - [Understanding the Basic Architecture](#understanding-the-basic-architecture)
   - [The Nature and Use of mimik ai](#the-nature-and-use-of-mimik-ai)
@@ -40,13 +40,13 @@
 
 ## Welcome to mimik ai
 
-Welcome to mimik ai, a cutting-edge product designed to revolutionize AI-powered application development. mimik ai is built to make developing AI applications easier, more secure, and more cost-effective. Whether you're a seasoned developer or just starting your journey in AI application development, mimik ai provides the tools and infrastructure you need to create powerful, distributed AI solutions.
+Welcome to mimik ai, a cutting-edge product that revolutionizes AI-powered application development. mimik ai is built to make developing AI applications easier, more secure, and more cost-effective. Whether you're a seasoned developer or just starting your journey in AI application development, mimik ai provides the tools and infrastructure you need to create powerful, distributed AI solutions.
 
 mimik ai empowers developers to create sophisticated AI applications that leverage distributed computing resources, local AI models, and advanced coordination capabilities. Whether you're building a simple chatbot or a complex multi-agent AI system, mimik ai provides the tools and infrastructure to bring your ideas to life.
 
 This documentation describes mimik ai and how it works. It provides explanations and a set of hands-on demonstration projects showing developers how to work with the technology. The demonstration projects are progressive in that each builds upon activities implemented in a previous demonstration project.
 
-The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a single agent. In the `second scenario`, you'll add an Nvidia Orin device to the edge Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine. In the `third scenario`, you'll add two more Agent Machines to the edge Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
+The demonstration projects illustrate three scenarios of progressive complexity. The `first scenario` you'll run is an Agent Collection with a  single agent. In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you made in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine. In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection. Through these scenarios, you will learn how to fetch and upload your AI model to the agents/computing nodes (steps will be highlighted in [mModelStore microservice](https://github.com/edgeMicroservice/mModelStore))
 
 Before discussing each scenario, a developer must understand the essential concepts and components of mimik ai. Once a developer understands these essentials, we'll provide the instructions for a developer to get direct hands-on experience with the scenarios via demonstration projects.
 
@@ -56,15 +56,15 @@ Let's start by answering the question, what is mimik ai?
 
 mimik ai is a product intended to make developing AI-powered applications more accessible, secure, and cost-effective.
 
-In terms of application development, mimik ai is organized into two parts. The first part is mim OE. mim OE is the mimik technology that is the runtime that enrolls a machine into the [edge Service Mesh](https://devdocs.mimik.com/introduction/04-index). It provides discovery capability to other mim OE-enabled machines running on the edge Service Mesh. mim OE is also an API gateway to the various edge microservices running on a given machine.
+In terms of application development, mimik ai is organized into two parts. The first part is mimOE-ai. mimOE-ai is the mimik technology that is the runtime that enrolls a machine into the [mimik Service Mesh](https://devdocs.mimik.com/introduction/04-index) and provides discovery capability to other mimOE-enabled machines running on the mimik Service Mesh. mimOE-ai is also an API gateway to the various mimik microservices running on a given machine.
 
-The second part of mimik ai is the various edge microservices that enable interaction with AI assets such as large language models (LLM) and vector databases. These assets are hosted locally on a machine running mim OE. These microservices are `mILM`, `mAI`, `mKB`, and `mModelStore`.
+The second part of mimik ai is the various edge microservices that enable interaction with AI assets such as large language models (LLM) and vector databases. These assets are hosted locally on a machine running mimOE-ai. These microservices are `mILM`, `mAIChain`, `mKB`, and `mModelStore`.
 
 The figure below describes the various deployment units.
 
-![mimik ai deployment units](./images/mimEO-ai-parts.png)
+![mimOE.ai deployment units](./images/mimEO-ai-parts.png)
 
-From a developer's point of view, the vital thing to understand about mimik ai is that the technology is a collection of deployment units. mim OE is the deployment unit that needs to be installed on any machine that implements mimik ai. The other deployment units are the various AI-focused microservices published by mimik, `mILM`, `mAI`, `mKB`, and `mModelStore`. You'll learn how to use these microservices in sections to come.
+From a developer's point of view, the vital thing to understand about mimik ai is that the technology is a collection of deployment units. edgeEngine is the deployment unit that needs to be installed on any machine that implements mimik ai. The other deployment units are the various AI-focused microservices published by mimik, `mILM`, `mAIChain`, `mKB`, and `mModelStore`. You'll learn how to use these microservices in sections to come.
 
 ## Key Features and Benefits of mimik ai
 
@@ -87,33 +87,33 @@ The main benefits are:
 
 ## Understanding the Basic Architecture
 
-Under mimik ai, two types of machines run on an edge service mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimik ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
+Under mimik ai, two types of machines are running on a mimik Service Mesh. One machine is a Coordinator Machine. The  other machine is an Agent Machine. As mentioned above, mimik ai has a feature that will process prompt results from various AI prompts and synthesize those prompt results into a "best possible response". The Coordinator Machine does the work of gathering the prompt results into a "best possible response". The Agent Machine(s) executes a particular prompt against an LLM or vector database that gets processed upstream by a Coordinator Machine.
 
-The figure below shows an instance of the edge Service Mesh with four Agent Machines and a Coordinator Machine.
+The figure below shows an instance of the mimik Service Mesh with four Agent Machines and a Coordinator Machine.
 
 ![Basic Architecture](./images/basic-architecture.png)
 
-A computing device is deemed an Agent machine when it runs one of the microservices, `mILM`, `mKB`, or `mModelStore`. These microservices are intended to execute direct prompt interactions with an LLM or vector database.
+A computing device is deemed an Agent machine when it runs one of the edge microservices, `mILM`, `mKB`, or `mModelStore`. These microservices are intended to execute direct prompt interactions with an LLM or vector database.
 
-A computing device is deemed a Coordinator Machine when it runs the `mAI` microservice.
+A computing device is deemed a Coordinator Machine when it runs the `mAIChain` microservice.
 
 **NOTE:** It is possible for a computing device to be both an Agent Machine and a Coordinator Machine. However, this capability is an advanced topic beyond the scope of this introductory documentation.
 
 ## The Nature and Use of mimik ai
 
-mimik ai utilizes mimik's mim OE runtime and edge Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimik ai, a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
+mimik ai utilizes mimik's mimiOE-ai runtime and mimik Service Mesh to enhance artificial intelligence processing capabilities in application development. Using mimik ai, a developer can interact with LLMs that run directly on any number of computing devices. Such devices can be a standard computer on a developer machine, a server in a data center, a mobile device such as a cell phone or tablet, or hardware optimized for AI processing such as those computing devices manufactured by Nvidia.
 
 ## AI Focused Microservices
 
-mimik ai publishes several microservices that execute under the mim OE runtime on a given computing device. These microservices are:
+mimOE-ai publishes several microservices that execute under the mimOE-ai runtime on a given computing device. These microservices are:
 
 |Microservice|Description||
 |----|----|----|
 |mILM|A microservice that exposes a discoverable API interacting with an LLM. The implementation can either be done by exposing an API of an LLM that runs in the same process or acting as a proxy for an LLM that runs in a different process and exposes a non-discoverable API.|Go to the release page [HERE](https://github.com/edgeMicroservice/mILM)|
-|mAI (aka mAIChain)| Implementing an AI chain as a microservice. mAI acts as a coordination agent in a collection of AI agents that perform specific tasks. mAI has no hardware constraints and can run on machines that also run other agents. There can be more than one mAI per collection of agents; mAI defines a specific goal when dealing with multiple agents. When the AI chain is well-defined, it is possible to have a configuration-based microservice. However, when dealing with complex interactions, the mAI will have a specific code to implement the AI chain.|Go to the release page [HERE](https://github.com/edgeMicroservice/mAI)|
-|mKB|A microservice that uses a vector database to deliver a RAG (retrieval augmented generation) system. Documents are chunked and indexed by creating vector representations (embeddings) of the document. The result of the indexation is stored in a vector database. mKB is used in a collection of agents as an agent that has specific knowledge about a subject|Go to the release page [HERE](https://github.com/edgeMicroservice/mKB)|
+|mAIChain)|An implementation of an AI chain as a microservice. mAI acts as a coordination agent in a collection of AI agents that perform specific tasks. mAI has no hardware constraints and can run on machines that also run other agents. There can be more than one mAI per collection of agents; mAI defines a specific goal when dealing with multiple agents. When the AI chain is well-defined, it is possible to have a configuration-based microservice. However, when dealing with complex interactions, the mAI will have a specific code to implement the AI chain.|Go to the release page [HERE](https://github.com/edgeMicroservice/mAI)|
+|mKB|A microservice that uses a vector database to implement an augmented generation system. Documents are chunked and indexed by creating vector representations (embeddings) of the document. The result of the indexation is stored in a vector database. mKB is used in a collection of agents as an agent that has specific knowledge about a subject|Go to the release page [HERE](https://github.com/edgeMicroservice/mKB)|
 |mModelStore|A microservice that stores AI models and exposes discoverable API to allow other components (mILM, for example) to fetch the model for its consumption. The component that fetches the model can be on the same machine or a different machine.|Go to the release page [HERE](https://github.com/edgeMicroservice/mModelStore)|
-| mInsight|A microservice that allows a developer to access the context in which the node running mInsight is. It provides insights into AI agents’ interactions and their operating context. The context is based on three scopes: network, proximity, and account, and it contains the list of nodes with their attributes and the microservices (mKB, mAI, mILM, mModelStore, and others) running on each node.|Go to the release page [HERE](https://github.com/edgeMicroservice/mInsight)|
+|mInsight|A microservice that allows a developer to access the context in which the node running mInsight is. It provides insights into AI agents’ interactions and their operating context. The context is based on three scopes: network, proximity, and account, and it contains the list of nodes with their attributes and the microservices (mKB, mAIChain, mILM, mModelStore, and others) running on each node.|Go to the release page [HERE](https://github.com/edgeMicroservice/mInsight)|
 
 In short, mimik ai's enhancements make working with AI faster, more secure, and more accurate.
 
@@ -125,9 +125,9 @@ As mentioned, an Agent Machine executes a prompt against a particular LLM or vec
 
 ![Logical Architecture](./images/logical-agent-architecture.png)
 
-The starting point for interacting with an Agent Machine is a prompt submitted to the mim OE runtime web server at port 8083. mim OE passes the prompt onto the microservice, which interacts with a particular AI model. If the Agent Machine runs the `mILM` microservice, it will access LLM stored locally on the machine. The Agent Machine will interact with a vector database if it runs the `mKB` microservice. If the Agent Machine runs the `mModelStore` microservice, it will interact with an AI model running elsewhere.
+The starting point for interacting with an Agent Machine is a prompt submitted to the edgeEngine runtime web server at port 8083. EdgeEngine passes the prompt onto the edge microservice, which interacts with a particular AI model. If the Agent Machine runs the `mILM` microservice, it will access LLM stored locally on the machine. The Agent Machine will interact with a vector database if it runs the `mKB` microservice. If the Agent Machine runs the `mModelStore` microservice, it will interact with an AI model running elsewhere.
 
-Once the AI model processes the prompt, the result is returned to the edge microservice and then to the caller who submitted the prompt.
+Once the AI model processes the prompt, the result is returned to the edge microservice and then returned to the caller who submitted the prompt.
 
 Working with an Agent Machine is covered in [a section to come](#getting-a-single-agent-machine-up-and-running).
 
@@ -139,7 +139,7 @@ As mentioned above, the role of the Coordinator Machine is to synthesize prompt 
 
 The Coordinator Machine is intended to support multi-agent processing.
 
-The way that multi-agent processing works is that a user submits, via the mim OE runtime, a prompt to the Coordinator Machine according to a specific Agent Collection. (The details about an Agent Collection are discussed in the coming section.) The Coordinator Machine forwards the prompt to the Agent Machines in the Agent Collection. Each Agent Machine in the Agent Collection processes the prompt and returns its response to the Coordinator Machine. The Coordinator Machine then synthesizes the prompt responses from the Agent Machines into the "best possible answer."
+The way that multi-agent processing works is that a user submits, via the edgeEngine runtime, a prompt to the Coordinator Machine according to a specific Agent Collection. (The details about an Agent Collection are discussed in the coming section.) The Coordinator Machine forwards the prompt to the Agent Machines in the Agent Collection. Each Agent Machine in the Agent Collection processes the prompt and returns its response to the Coordinator Machine. The Coordinator Machine then synthesizes the prompt responses from the Agent Machines into the "best possible answer."
 
 Working with a Coordinator Machine is covered in [a section to come](#getting-the-coordinator-machine-up-and-running).
 
@@ -161,18 +161,17 @@ To get full benefit from reading this documentation, you need to have the follow
 
 * A mimik developer's account, which you create on the [Getting Started page of the mimik Developer Portal](https://console.mimik.com/create_account). (See the following figure.)
 ![Create Account](./images/create-account-01.png)
-* A general understanding of mimik technology because mimik ai is an extension. The following links refer to entries in the [mimik Developer Documentation](https://devdocs.mimik.com/) that describe the basics of mimik.
-  * [Introduction to mim OE](https://devdocs.mimik.com/introduction): Introduces a developer to the three essential components of mimik technology: mim OE, the hybrid edgeCloud, and the edge Service Mesh.
-  * [Key Concepts](https://devdocs.mimik.com/key-concepts): Describes the key concepts a developer needs to understand to work effectively with mim OE.
-.
+* A general understanding of mimik technology because mimOE.ai is an extension. The following links refer to entries in the [mimik Developer Documentation](https://devdocs.mimik.com/) that describe the basics of mimik.
+  * [Introduction to edgeEngine](https://devdocs.mimik.com/introduction): Introduces a developer to the 3 essential components of edgeEngine technology: the edgeEngine Runtime, the hybrid edgeCloud, and the edgeEngine Service Mesh.
+  * [Key Concepts](https://devdocs.mimik.com/key-concepts): Describes the key concepts a developer needs to understand to work effectively with edgeEngine.
 
-In addition to understanding the basics of mimik technology, a developer needs to understand the nature of large language models (LLM) and how they respond to prompts and queries submitted by end-users. LLMs are important part of mimik ai.
+In addition to understanding the basics of mimik technology, a developer needs to understand the nature of large language models (LLM) and how they respond to prompts and queries submitted by end-users. LLMs are important part of mimik ai
 
 # Getting Started
 
 ## Getting Essential Configuration Information
 
-To get the various devices within the edge Service Mesh integrated into mimik ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the edge Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
+To get the various devices within the mimik Service Mesh integrated into mimOE.ai at run time, a developer must have information about the developer's account on the [mimik Developer Portal](https://console.mimik.com/). Also, the developer will need to discover information about the machine running on the mimik Service Mesh, which is intended to be part of the demonstration scenario. The required information is:
 
 * `clientId token`
 * `developerId token`
@@ -182,13 +181,13 @@ The sections that follow describe the details of the required information listed
 
 ### Getting the clientId token and the developerId token
 
-The figure below describes the steps necessary to get the `clientId token` and `developerId token` from the [mimik Developer Portal](https://console.mimik.com/). A developer will navigate to the Developer Portal and do the steps described in the figure below according to the callout numbers in the illustration. The same clientId should be used for the congiration of all mim-OE
+The figure below describes the steps necessary to get the `clientId token` and `developerId token` from the [mimik Developer Portal](https://console.mimik.com/). A developer will navigate to the Developer Portal and do the steps described in the figure below according to the callout numbers in the illustration.
 
 ![ClientId and DeveloperID Tokens](./images/console-process-01.png)
 
 ### Getting a nodeId
 
-A `nodeId` is an alphanumeric string associated with a particular machine running on the edge Service Mesh. The `nodeId` is assigned at runtime by the mim OE instance running on the given machine. A developer discovers the `nodeId` of the given machine by running a cURL command against the IP address of the machine in question.
+A `nodeId` is an alphanumeric string associated with a particular machine running on the mimik Service Mesh. The `nodeId` is assigned at runtime by the edgeEngine instance running on the given machine. A developer discovers the `nodeId` of the given machine by running a cURL command against the IP address of the machine in question.
 
 ```
 curl --request POST \
@@ -232,7 +231,7 @@ Also, a developer can discover a machine's `nodeId` by running a specific comman
 
 The hands-on demonstration scenarios described in the documentation use the [VS Code REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) to execute cURL commands automatically. The commands are defined and executed within a file named `setup.http`. There will be various `setup.http` files used throughout the demonstration scenarios. There will be `setup.http` files to provision and exercise Agent Machines. Also, there will be `setup.http` files intended to provision and exercise Coordinator Machines. (The nature and use of Agent and Coordinator Machines were described in earlier sections.) 
 
-The critical thing to understand about `setup.http` files is that they are intended to make executing commands on a machine in the edge Service Mesh easier and less error-prone. Also, it's important to understand that each `setup.http.` file will have a particular `.env` file associated with it. The `.env` file defines the environment variables that provide runtime information that the `setup.http` file needs to execute  properly the commands against its intended machine. For example, the values for `HOST_IP_ADDRESS`, `DEVELOPER_ID_TOKEN`, `CLIENT_ID`, and `API_KEY` shown in the snippet of the `setup.http` file shown below are defined as environment variables within the associated `.env` file.
+The critical thing to understand about `setup.http` files is that they are intended to make executing commands on a machine in the mimik Service Mesh easier and less error-prone. Also, it's important to understand that each `setup.http.` file will have a particular `.env` file associated with it. The `.env` file defines the environment variables that provide runtime information that the `setup.http` file needs to execute  properly the commands against its intended machine. For example, the values for `HOST_IP_ADDRESS`, `DEVELOPER_ID_TOKEN`, `CLIENT_ID`, and `API_KEY` shown in the snippet of the `setup.http` file shown below are defined as environment variables within the associated `.env` file.
 
 ![setup http example](./images/setupHttpExample.png)
 
@@ -247,7 +246,7 @@ When it comes time to do the hands-on demonstration projects, you'll need to hav
 * A development machine running a copy of Visual Studio Code
 * The [Rest Client extension](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.RestClient) installed in Visual Studio code
 * Working familiarity using the Rest Client. (Read [this tutorial](https://medium.com/lseg-developer-community/how-to-test-rest-api-with-visual-studio-code-rest-client-extensions-9f2e061d0299) to get a basic understanding of how to use the Rest Client.)
-* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of mim OE for mimik ai. This version of mim OE can be downloaded from the [mim-OE-SE-Linux v3.13.1 Release Page on GitHub](https://github.com/mim-OE/mim-OE-SE-Linux/).
+* A set of computers running the Ubuntu 22.04 with port 8083 exposed. These computers can be distinct physical AMD and ARM, such as Raspberry Pi or AMD virtual machines (VM) running Ubuntu 22.04. Also, these computers must be running the latest version of mimOE-AI for mimik ai. This is a version of mimOE-ai formally called `mimOE-SE-Linux v3.14.0` and can be downloaded from the [mimOE-ai-SE-Linux v3.14.0 Release Page on GitHub](https://github.com/mim-OE/mim-OE-SE-Linux).
 
 ## Hardware and Software Recommendations
 
@@ -261,39 +260,39 @@ To review, these scenarios are:
 
 (The details about the nature and use of an Agent Machine and a Coordinator Machine are described in the section [Understanding the Basic Architecture](#understanding-the-basic-architecture) that follows later on in this document.)
   
-These demonstration scenarios involve running several computers on the edge Service Mesh. These computers must run the latest mimi OE version for mimik ai.
+These demonstration scenarios involve running several computers on the mimik Service Mesh. These computers will need to run the latest edgeEngine version for mimOE.ai.
 
 For `Scenario 1`, we recommend using an AMD computer for the Coordinator Machine and an ARM or AMD computer for the single Agent Machine.
 
-In `Scenario 2,` we demonstrate incorporating an Nvidia Orin Jetson Nano device into the edge Service Mesh. So, you will actually need one available. In Scenario 2, you will use the existing Coordinator Machine you created in Scenario 1.
+In Scenario 2, we demonstrate incorporating an Nvidia Orin Jetson Nano device into the mimik Service Mesh. You will actually need one available. In Scenario 2, you will use the existing Coordinator Machine you created in Scenario 1.
 
-In `Scenario 3`, you will add two more Agent Machines to the edge Service Mesh and configure mimik ai to support the additional AMD or ARM computers.
+In `Scenario 3`, you will add two more Agent Machines to the mimik Service Mesh and configure mimOE-ai to support the additional AMD or ARM computers.
 
 
-The table below describes the machine and releases of mim-OE-SE-Linux v3.13.1 that you will need to have available for each scenario.
+The table below describes the machine and releases of mimOE-ai-SE-Linux v3.12.1 that you will need to have available for each scenario.
 
-|Scenario|Machine|Type|Version of mim-OE-SE-Linux|
+|Scenario|Machine|Type|Version of mimOE-SE-Linux|
 |:---------|----|----|----|
-|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar) or [mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar)|
-| |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
+|Scenario 1|Coordinator Machine|ARM or AMD|Click to download: [mimOE-ai-SE-linux-developer-AMD64-v3.12.1.tar](https://github.com/mimik-mimOE/mimOE-SE-Linux/releases/download/v3.12.1/mimOE-ai-SE-linux-developer-AMD64-v3.12.0.tar) or [mimOE-ai-SE-linux-developer-ARM64-v3.12.0.tar](https://github.com/mimik-mimOE/mimOE-SE-Linux/releases/download/v3.12.1/mimOE-ai-SE-linux-developer-ARM64-v3.12.1.tar)|
+| |Agent Machine|ARM or AMD|mimOE-ai-SE-linux-developer-AMD64-v3.12.1.tar or mimOE-ai-SE-linux-developer-ARM64-v3.12.1.tar|
 |Scenario 2|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in previous in Scenario 1| |
-| |Agent Machine|Nvidia Orin Jetson Nano device| Click to download: [mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar](https://github.com/mim-OE/mim-OE-SE-Linux/releases/download/v3.13.1/mim-OE-ai-SE-linux-developer-ARM64-CUDA-v3.13.1.tar)|
+| |Agent Machine|Nvidia Orin Jetson Nano device| Click to download: [mimOE-ai-SE-linux-developer-ARM64-CUDA-v3.12.1.tar](https://github.com/mimik-mimOE/mimOE-SE-Linux/releases/download/v3.12.1/mimOE-ai-SE-linux-developer-ARM64-CUDA-v3.12.0.tar)|
 |Scenario 3|Existing Coordinator Machine|Installed in Scenario 1| |
 | |Agent Machine|Installed in Scenario 1| |
 | |Agent Machine|Nvidia Orin Jetson Nano device installed in Scenario 2| |
-| |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
-| |Agent Machine|ARM or AMD|mim-OE-ai-SE-linux-developer-AMD64-v3.13.1.tar or mim-OE-ai-SE-linux-developer-ARM64-v3.13.1.tar|
+| |Agent Machine|ARM or AMD|mimOE-ai-SE-linux-developer-AMD64-v3.12.0.tar or mimOE-ai-SE-linux-developer-ARM64-v3.12.0.tar|
+| |Agent Machine|ARM or AMD|mimOE-ai-SE-linux-developer-AMD64-v3.12.0.tar or mimOE-ai-SE-linux-developer-ARM64-v3.12.0.tar|
 
-The details of each release, as well as Quickstart instructions for installation, are located at [the mim-OE-SE-Linux-v3.13.1 Release page](https://github.com/mim-OE/mim-OE-SE-Linux/releases) on GitHub.
+The details of each release, as well as Quickstart instructions for installation, are located at [the mimOE-SE-Linux-v3.12.0 Release page](https://github.com/mimik-mimOE/mimOE-SE-Linux/releases) on GitHub.
 
 ## Implementing the Demonstration Scenarios
 
 The `first scenario` you'll run is a single-agent scenario under Agent Collection.
 
-In the `second scenario`, you'll add an Nvidia Orin device to the edge Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you created in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine.
+In the `second scenario`, you'll add an Nvidia Orin device to the mimik Service Mesh as an Agent Machine. You'll then create a new Agent Collection that includes the Agent Machine you created in the first scenario and the Nvidia Agent Machine. For this scenario, you’ll also make a distinctly named Agent Collection on the Coordinator Machine.
 
-In the `third scenario`, you'll add two more Agent Machines to the edge Service Mesh and run all under another distinctly named Agent Collection.
+In the `third scenario`, you'll add two more Agent Machines to the mimik Service Mesh and run all under another distinctly named Agent Collection.
 
 ### Scenario 1: Setting up and running a Single Agent Collection scenario
 
@@ -327,11 +326,11 @@ The instructions for connecting the User Console to the Coordinator Machine are 
 
 ### Scenario 2: Setting Up and Running an Agent Collection that includes an Nvidia Agent Machine
 
-**NOTE:** This demonstration scenario will only be implemented after completing the first scenario, which demonstrates how to use mimik ai to work with a single Agent Collection.
+**NOTE:** This demonstration scenario will only be implemented after completing the first scenario, which demonstrates how to use mimOE.ai to work with a single Agent Collection.
 
 ---
 
-In this scenario, you will add an Nvidia Orin Jetson Nano/AGX device to the edge Service Mesh. Then, you will configure that NVidia device to be an Agent Machine. After the Nvidia Orin Jetson Nano/AGX device is up and running, you create a new, distinctly named Agent Collection on the existing Coordinator Machine, including the Agent Machine made in the previous demonstration scenario and the newly created NVidia Agent Machine.
+In this scenario, you will add an Nvidia Orin Jetson Nano/AGX device to the mimik Service Mesh. Then, you will configure that NVidia device to be an Agent Machine. After the Nvidia Orin Jetson Nano/AGX device is up and running, you create a new, distinctly named Agent Collection on the existing Coordinator Machine, including the Agent Machine made in the previous demonstration scenario and the newly created NVidia Agent Machine.
 
 After all the Service Machines are up and running and the Coordinator Machine has been configured with the new Agent Collection, you'll implement an instance of the User Console web server that listens on a distinct port. This latest User Console web server instance will be bound to the newly created Agent Collection with the previously created Agent Machine and the freshly created Nvidia Agent Machine.
 
@@ -341,11 +340,11 @@ The figure below shows the demonstration scenario you'll be able to implement.
 
 #### Adding an Nvidia Orin Jetson Nano/AGX device as an Agent Machine
 
-To learn how to add an Nvidia Orin Jetson Nano/AGX device as an Agent Machine on the edge Service Mesh, go [here](./02-nvidia-architecture/nvidia-agent-machine/).
+To learn how to add an Nvidia Orin Jetson Nano/AGX device as an Agent Machine on the mimik Service Mesh, go [here](./02-nvidia-architecture/nvidia-agent-machine/).
 
 #### Loading an AI Model to the Nvidia Device as an Agent Machine
 
-To load an AI model to the Agent Machine, go [here](./02-nvidia-architecture/nvidia-agent-machine/readme.md#Step-9).
+To learn how to load an AI model to the Agent Machine, go [here](./02-nvidia-architecture/nvidia-agent-machine/readme.md#Step-9).
 
 #### Declaring a new Agent Collection that includes the Nvidia machine on the Coordinator Machine
 
@@ -361,7 +360,7 @@ Please follow the instructions for setting up and using the new Agent Collection
 
 ### Scenario 3: Setting Up and Running a Multi-Agent Collection
 
-This scenario enhances the previous one. In this scenario, you will add two more Agent Machines running mim OE to the edge Service Mesh. Each machine will run the `mILM` microservice. Also, each machine will have an LLM loaded directly on it. The model is the same one configured and used on the single Agent Machine in the previous scenario.
+This scenario enhances the previous one. In this scenario, you will add two more Agent Machines running edgeEngine to the mimik Service Mesh. Each machine will run the `mILM` microservice. Also, each machine will have an LLM loaded directly on it. The model is the same one configured and used on the single Agent Machine in the previous scenario.
 
 ![Basic Architecture](./images/basic-architecture.png)
 
@@ -375,5 +374,4 @@ As in the demonstration scenario executed previously, getting a Multi-Agent Coll
 * Configuring the Coordinator Machine to support an additional Agent Collection that includes the new Agent Machines and those Agent Machines created previously.
 * Connecting a new instance of User Console to the Coordinator Machine via its nodeId. The new instance of the User Console web server for this scenario will run on a new distinct port and will be bound to the Agent Collection created in this demonstration scenario.
 
-To learn the details of getting Scenario 3 up and running, go [here](03-multi-agent-architecture/README.md).
-
+To learn the details of getting Scenario 3 up and running, go [HERE](03-multi-agent-architecture/README.md).
