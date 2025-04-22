@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Prompt Results Unified By mimOE.ai</title>
+  <script>
+    // Configure MathJax to use $ for inline LaTeX
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.0.3/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
+  <script src="./sitedata.js"></script>
+  <style>
+    /* Existing styles */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Add new styles for thinking process */
+    .thinking-container {
+      background-color: #f8f9fa;
+      border-left: 3px solid #6c757d;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .thinking-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 8px;
+    }
+
+    .thinking-header:hover {
+      opacity: 0.8;
+    }
+
+    .thinking-toggle {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 8px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    .thinking-toggle.collapsed {
+      transform: rotate(-90deg);
+    }
+
+    .thinking-content {
+      font-family: monospace;
+      white-space: pre-wrap;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      display: block;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .thinking-content.collapsed {
+      display: none;
+    }
+
+    .thinking-time {
+      color: #666;
+      font-size: 0.9em;
+      font-style: italic;
+      margin-top: 8px;
+      padding-left: 28px;
+    }
+
+    #chat-container {
+      border: 1px solid #ccc;
+      height: 400px;
+      overflow-y: scroll;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    #user-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    #send-button {
+      padding: 10px 20px;
+    }
+
+    #model-select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .user-message,
+    .ai-message {
+      padding: 5px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    .user-message {
+      background-color: #e6f2ff;
+    }
+
+    .ai-message {
+      background-color: #f0f0f0;
+    }
+
+    /* Progress indicator styles */
+    .progress-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+    }
+
+    .progress-spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+
+    .progress-text {
+      color: #666;
+      font-size: 14px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Existing styles continued */
+    .ai-message pre {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
+    .ai-message code {
+      background-color: #f0f0f0;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    #image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      margin: 10px 0;
+      display: none;
+    }
+
+    #image-container {
+      margin-bottom: 10px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    #image-container.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .model-info {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    #usage-stats {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .usage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .usage-item {
+      background-color: #fff;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #eee;
+    }
+
+    .usage-label {
+      color: #666;
+      font-size: 0.8em;
+    }
+
+    .usage-value {
+      font-weight: bold;
+      color: #333;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Keep the existing HTML structure -->
+  <h1>Agent Prompt Results Unified By mimOE.ai</h1>
+  <select id="model-select" disabled>
+    <option value="">Loading models...</option>
+  </select>
+  <div id="model-kind" class="model-info"></div>
+  <div id="chat-container"></div>
+  <div id="image-container">
+    <input type="file" id="image-input" accept="image/jpeg" disabled />
+  </div>
+  <img id="image-preview" alt="Preview" />
+  <div class="input-container">
+    <textarea id="user-input" placeholder="Type your message here... (Shift + Enter for new line)" disabled></textarea>
+  </div>
+  <button id="send-button" disabled>Send</button>
+
+  <div id="usage-stats" style="display: none;">
+    <strong>Last Response Usage Statistics</strong>
+    <div class="usage-grid">
+      <div class="usage-item">
+        <div class="usage-label">Prompt Tokens</div>
+        <div class="usage-value" id="prompt-tokens">-</div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-label">Completion Tokens</div>
+        <div class="usage-value" id="completion-tokens">-</div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-label">Total Tokens</div>
+        <div class="usage-value" id="total-tokens">-</div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-label">Tokens per Second</div>
+        <div class="usage-value" id="tokens-per-second">-</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const myconfig = config || {};
+    const {
+      SERVICE_TYPE='mai',
+      API_KEY='1234',
+      HOST='http://127.0.0.1:8083',
+      COORDINATOR_IP_ADDRESS,
+      ENABLE_DEV_TOOL,
+    } = myconfig;
+    if (typeof nw !== 'undefined' && ENABLE_DEV_TOOL) {
+      nw.Window.get().showDevTools();
+    }
+    // Keep existing variable declarations
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    const modelSelect = document.getElementById('model-select');
+    const imageInput = document.getElementById('image-input');
+    const imagePreview = document.getElementById('image-preview');
+    const imageContainer = document.getElementById('image-container');
+    const modelKindDisplay = document.getElementById('model-kind');
+    const usageStats = document.getElementById('usage-stats');
+
+    const hostUrl = COORDINATOR_IP_ADDRESS ? `http://${COORDINATOR_IP_ADDRESS}:8083` : HOST
+    const API_URL = `${hostUrl}/api/${SERVICE_TYPE}/v1/chat/completions`;
+    const MODELS_URL = `${hostUrl}/api/${SERVICE_TYPE}/v1/models`;
+
+    let currentImageBase64 = null;
+    let currentModelKind = null;
+
+    function createThinkingContainer() {
+      const container = document.createElement('div');
+      container.className = 'thinking-container';
+
+      const header = document.createElement('div');
+      header.className = 'thinking-header';
+
+      const toggle = document.createElement('span');
+      toggle.className = 'thinking-toggle';
+      toggle.textContent = '▼';
+
+      const title = document.createElement('span');
+      title.textContent = 'Thinking Process';
+
+      const content = document.createElement('div');
+      content.className = 'thinking-content';
+
+      header.appendChild(toggle);
+      header.appendChild(title);
+      container.appendChild(header);
+      container.appendChild(content);
+
+      header.addEventListener('click', () => {
+        content.classList.toggle('collapsed');
+        toggle.classList.toggle('collapsed');
+      });
+
+      return { container, content };
+    }
+
+    // Enhanced textarea auto-resize function
+    function autoResizeTextarea(textarea) {
+      textarea.style.height = 'auto';
+      const newHeight = Math.min(200, Math.max(60, textarea.scrollHeight));
+      textarea.style.height = newHeight + 'px';
+    }
+
+    // Enhanced keypress handler
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (e.shiftKey) {
+          // Allow natural line break behavior
+          return;
+        } else {
+          e.preventDefault();
+          sendMessage();
+        }
+      }
+    });
+
+    // Handle paste events
+    userInput.addEventListener('paste', (e) => {
+      // Short timeout to let the paste complete
+      setTimeout(() => {
+        autoResizeTextarea(e.target);
+      }, 0);
+    });
+
+    // Handle input events for auto-resize
+    userInput.addEventListener('input', (e) => {
+      autoResizeTextarea(e.target);
+    });
+
+    function createProgressIndicator(text) {
+      const container = document.createElement('div');
+      container.className = 'progress-container';
+
+      const spinner = document.createElement('div');
+      spinner.className = 'progress-spinner';
+
+      const textElement = document.createElement('span');
+      textElement.className = 'progress-text';
+      textElement.textContent = text;
+
+      container.appendChild(spinner);
+      container.appendChild(textElement);
+
+      return container;
+    }
+
+    function handleProgressToken(content, aiMessageDiv) {
+      // Check if we have an existing progress container
+      let progressContainer = aiMessageDiv.querySelector('.progress-container');
+
+      if (content.startsWith('<|loading_model|>') || content.startsWith('<|processing_prompt|>')) {
+        // If we don't have a progress container yet, create one
+        if (!progressContainer) {
+          progressContainer = document.createElement('div');
+          progressContainer.className = 'progress-container';
+
+          const spinner = document.createElement('div');
+          spinner.className = 'progress-spinner';
+
+          const textElement = document.createElement('span');
+          textElement.className = 'progress-text';
+
+          progressContainer.appendChild(spinner);
+          progressContainer.appendChild(textElement);
+          aiMessageDiv.appendChild(progressContainer);
+        }
+
+        // Just update the text content
+        const textElement = progressContainer.querySelector('.progress-text');
+        if (content.startsWith('<|loading_model|>')) {
+          textElement.textContent = 'Loading model... '
+            + content.replace('<|loading_model|>', '').replace('<br />', '');
+        } else {
+          textElement.textContent = 'Processing prompt... '
+            + content.replace('<|processing_prompt|>', '').replace('<br />', '');
+        }
+        return true;
+      } else {
+        // If it's not a progress token and we have a progress container, remove it
+        if (progressContainer) {
+          progressContainer.remove();
+        }
+        return false;
+      }
+    }
+
+    async function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      // Validate model selection
+      const selectedModel = modelSelect.value;
+      if (!selectedModel) {
+        alert('Please select a model');
+        return;
+      }
+
+      // Handle image if present for VLM models
+      let fullMessage = message;
+      const selectedKind = modelSelect.selectedOptions[0].getAttribute('data-kind');
+      if (currentImageBase64 && selectedKind === 'vlm') {
+        fullMessage = `<img src="${currentImageBase64}">\n${message}`;
+      }
+
+      // Add user message and prepare UI
+      addMessage('User', message);
+      userInput.value = '';
+      sendButton.disabled = true;
+
+      // Create AI message container
+      const aiMessageDiv = addMessage('AI', '');
+
+      // Initialize response tracking variables
+      let normalResponse = '';           // Stores regular response content
+      let isCollectingThinking = false;  // Tracks if we're inside thinking tags
+      let thinkingContent = '';          // Stores thinking process content
+      let thinkingContainer = null;      // Reference to thinking container element
+      let currentThinkingContent = null; // Reference to thinking content element
+      let thinkStartTime = null;         // Add timestamp tracking
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: selectedModel,
+            messages: [{ role: "user", content: fullMessage }],
+            temperature: 0.1,
+            stream: true
+          })
+        });
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+
+          // Parse each line of the response
+          const parsedLines = lines
+            .map(line => line.replace(/^data: /, '').trim())
+            .filter(line => line !== '' && line !== '[DONE]')
+            .map(line => JSON.parse(line));
+
+          for (const parsedLine of parsedLines) {
+            const { choices, usage } = parsedLine;
+            const { delta } = choices[0];
+            const { content } = delta;
+
+            // Update usage statistics if provided
+            if (usage) {
+              updateUsageStats(usage);
+            }
+
+            if (content) {
+              // Check if it's a progress token (loading model, processing prompt)
+              if (!handleProgressToken(content, aiMessageDiv)) {
+                // Check for thinking process start
+                if (content.includes('<think>')) {
+                  isCollectingThinking = true;
+                  thinkStartTime = Date.now();  // Start timing
+                  // Create new thinking container if none exists
+                  if (!thinkingContainer) {
+                    const { container, content: thinkingContentEl } = createThinkingContainer();
+                    thinkingContainer = container;
+                    currentThinkingContent = thinkingContentEl;
+                    aiMessageDiv.appendChild(container);
+                  }
+                  continue;
+                }
+
+                // Check for thinking process end
+                if (content.includes('</think>')) {
+                  isCollectingThinking = false;
+                  // Calculate elapsed time
+                  const elapsedTime = (Date.now() - thinkStartTime) / 1000;
+
+                  // Add elapsed time display
+                  if (thinkingContainer) {
+                    const timeDiv = document.createElement('div');
+                    timeDiv.className = 'thinking-time';
+                    timeDiv.textContent = `Thinking time: ${elapsedTime.toFixed(1)} seconds`;
+                    thinkingContainer.appendChild(timeDiv);
+                  }
+                  continue;
+                }
+
+                // Handle content based on whether we're collecting thinking process
+                if (isCollectingThinking) {
+                  // Add to thinking content
+                  thinkingContent += content;
+                  if (currentThinkingContent) {
+                    currentThinkingContent.textContent = thinkingContent;
+                  }
+                } else {
+                  // Add to normal response
+                  normalResponse += content;
+
+                  // Get or create response content container
+                  const responseDiv = aiMessageDiv.querySelector('.response-content') ||
+                    (() => {
+                      const div = document.createElement('div');
+                      div.className = 'response-content';
+                      aiMessageDiv.appendChild(div);
+                      return div;
+                    })();
+
+                  // Update response content with markdown rendering
+                  responseDiv.innerHTML = renderMarkdown(normalResponse);
+                }
+
+                // Scroll chat to bottom
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        aiMessageDiv.innerHTML = `<strong>AI:</strong> An error occurred while processing your request: ${error.message}`;
+      }
+
+      {
+        const lastResponseDiv = aiMessageDiv.querySelector('.response-content')
+
+        if (lastResponseDiv) {
+          lastResponseDiv.innerHTML = normalResponse;
+          MathJax.typeset([lastResponseDiv]);
+          lastResponseDiv.innerHTML = marked(lastResponseDiv.innerHTML);
+        }
+      }
+      // Re-enable send button
+      sendButton.disabled = false;
+    }
+
+    // Keep all other existing functions unchanged
+    function updateUsageStats(usage) {
+      usageStats.style.display = 'block';
+      document.getElementById('prompt-tokens').textContent = usage.prompt_tokens;
+      document.getElementById('completion-tokens').textContent = usage.completion_tokens;
+      document.getElementById('total-tokens').textContent = usage.total_tokens;
+      document.getElementById('tokens-per-second').textContent = usage.token_per_second.toFixed(2);
+    }
+
+    marked.setOptions({
+      highlight: function (code, lang) {
+        return code;
+      }
+    });
+
+    imageInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          currentImageBase64 = e.target.result;
+          imagePreview.src = currentImageBase64;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function updateImageInputState(modelKind) {
+      const isVLM = modelKind === 'vlm';
+      imageInput.disabled = !isVLM;
+      imageContainer.classList.toggle('disabled', !isVLM);
+
+      if (!isVLM) {
+        currentImageBase64 = null;
+        imagePreview.style.display = 'none';
+        imageInput.value = '';
+      }
+
+      // modelKindDisplay.textContent = `Model Type: ${modelKind || 'Unknown'}`;
+      modelKindDisplay.style.color = isVLM ? '#228B22' : '#666';
+    }
+
+    function addMessage(role, content) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = role === 'User' ? 'user-message' : 'ai-message';
+      messageDiv.innerHTML = `<strong>${role}:</strong> ${content}`;
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      return messageDiv;
+    }
+
+    function renderMarkdown(text) {
+      // return text;
+      return marked.parse(text);
+      // return DOMPurify.sanitize(marked(text));
+    }
+
+    async function fetchModels() {
+      try {
+        const response = await fetch(MODELS_URL, {
+          headers: {
+            'Authorization': `Bearer ${API_KEY}`
+          }
+        });
+        const data = await response.json();
+        return data.data;
+      } catch (error) {
+        console.error('Error fetching models:', error);
+        return [];
+      }
+    }
+
+    async function populateModelSelect() {
+      const models = await fetchModels();
+      modelSelect.innerHTML = '';
+      models.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model.id;
+        option.textContent = model.id;
+        option.setAttribute('data-kind', model.kind);
+        modelSelect.appendChild(option);
+      });
+      modelSelect.disabled = false;
+      userInput.disabled = false;
+      sendButton.disabled = false;
+
+      if (modelSelect.selectedOptions[0]) {
+        const initialKind = modelSelect.selectedOptions[0].getAttribute('data-kind');
+        updateImageInputState(initialKind);
+      }
+    }
+
+    function clearAllInputs() {
+      currentImageBase64 = null;
+      imagePreview.style.display = 'none';
+      imageInput.value = '';
+      userInput.value = '';
+      chatContainer.innerHTML = '';
+      usageStats.style.display = 'none';
+    }
+
+    modelSelect.addEventListener('change', function () {
+      const selectedOption = this.selectedOptions[0];
+      if (selectedOption) {
+        const modelKind = selectedOption.getAttribute('data-kind');
+        updateImageInputState(modelKind);
+        clearAllInputs();
+
+        const modelChangedMessage = document.createElement('div');
+        modelChangedMessage.className = 'ai-message';
+        modelChangedMessage.innerHTML = `<strong>System:</strong> Switched to model: ${selectedOption.textContent}`;
+        chatContainer.appendChild(modelChangedMessage);
+      }
+    });
+
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Fetch and populate models when the page loads
+    populateModelSelect();
+  </script>
+</body>
+
+</html>

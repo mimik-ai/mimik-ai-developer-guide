@@ -6,19 +6,20 @@
 
 @agentCollectionName={{$dotenv AGENT_COLLECTION_NAME}}
 
-### Microservice
-@maiTarName = mai-v1-1.7.0.tar
-
 ###Settings
+
+@summaryTemplate=Must start reply with 'Here is a summary:'.  Given the context below, synthesize the information and provide a unified, concise summary in short point form.\n\n<context>{{mergedContent}}</context>
+### Setup API's 
+
 @tokenScope=openid edge:mcm edge:clusters edge:account:associate
 @modelUrl={{$dotenv MODEL_URL}}
 
 ### Node Info
 ### Set the following values using the information returned from each constituent node's setup.http file.
-@nodeId1_AI-CHAT-1 = {{$dotenv NODE_ID_AGENT_1}}
-@nodeId2_AI-CHAT-2 = {{$dotenv NODE_ID_NVIDIA_AGENT}}
+@nodeId1_AI-CHAT-1={{$dotenv NODE_ID_AGENT_1}}
+@nodeId2_AI-CHAT-2={{$dotenv NODE_ID_NVIDIA_AGENT}}
 
-@nodeId_COORDINATOR = {{$dotenv NODE_ID_COORDINATOR}}
+@nodeId_COORDINATOR={{$dotenv NODE_ID_COORDINATOR}}
 
 ### Setup API's 
 
@@ -72,7 +73,7 @@ Authorization: Bearer {{edgeToken}}
 
 ######
 ### Step 6: Verify that the model has been deployed 
-GET {{host}}/api/mim/v1/models
+GET {{host}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
@@ -88,22 +89,22 @@ Authorization: bearer {{apiKey}}
   "modelfile": {
     "prompts": [
       {
-        "url": "{{nodeId1_AI-CHAT-1}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-        "model": "lmstudio-ai/gemma-2b-it-GGUF",
+        "url": "{{nodeId1_AI-CHAT-1}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+        "model": "Llama-3.2-1B-Instruct-GGUF",
         "apikey": "Bearer {{apiKey}}",
         "required": true
       },
       {
-        "url": "{{nodeId2_AI-CHAT-2}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-        "model": "lmstudio-ai/gemma-2b-it-GGUF",
+        "url": "{{nodeId2_AI-CHAT-2}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+        "model": "Llama-3.2-1B-Instruct-GGUF",
         "apikey": "Bearer {{apiKey}}",
         "required": false
       }
     ],
     "summary": {
-      "template": "Given the responses from assistants below, synthesize the information to create a unified, concise summary. Provide a coherent answer that integrates these perspectives.\n-----\n\n${{mergedContent}}",
-      "url": "{{nodeId_COORDINATOR}}@mmesh/{{clientId}}/mim/v1/chat/completions",
-      "model": "lmstudio-ai/gemma-2b-it-GGUF",
+      "template": "{{summaryTemplate}}",
+      "url": "{{nodeId_COORDINATOR}}@mmesh/{{clientId}}/milm/v1/chat/completions",
+      "model": "Llama-3.2-1B-Instruct-GGUF",
       "apikey": "Bearer {{apiKey}}",
       "required": true
     }

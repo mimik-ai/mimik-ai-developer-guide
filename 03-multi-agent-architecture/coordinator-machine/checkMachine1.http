@@ -16,9 +16,6 @@
 
 @agentCollectionName={{$dotenv AGENT_COLLECTION_NAME}}
 
-### Microservice
-@maiTarName = mai-v1-1.7.0.tar
-
 ###Settings
 @tokenScope=openid edge:mcm edge:clusters edge:account:associate
 @modelUrl={{$dotenv MODEL_URL}}
@@ -83,7 +80,7 @@ Authorization: Bearer {{edgeToken}}
 
 ######
 ### Step 5: Verify that the model has been deployed 
-GET {{machine1}}/api/mim/v1/models
+GET {{machine1}}/api/milm/v1/models
 Content-Type: application/json
 Authorization: bearer {{apiKey}}
 
@@ -92,19 +89,17 @@ Authorization: bearer {{apiKey}}
 ### Step 6: Run the prompt that exercises the microservice
 ### Copy as cURL because VS Code doesn't know how to handle streaming API
 ### Be patient, the response wil take about a minute
-POST {{machine1}}/api/mim/v1/chat/completions
+POST {{machine1}}/api/milm/v1/chat/completions
 Content-Type: application/json
 Authorization: Bearer {{apiKey}}
 
 {
-  "model": "lmstudio-ai/gemma-2b-it-GGUF",
+  "model": "Llama-3.2-1B-Instruct-GGUF",
   "messages": [ 
     { "role": "user", "content": "Who were the first 3 Presidents of the United States" }
   ],
   "stream": true
 }
-
-
 
 ######
 ### Step 7: view the logs
